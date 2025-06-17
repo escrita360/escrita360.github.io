@@ -27,10 +27,10 @@ window.addEventListener('scroll', function() {
 // Animação de typing no hero
 const typingText = document.querySelector('.typing-text');
 const texts = [
-    'Apoio à produção textual...',
-    'Auto avaliação e apoio de professores...',
-    'Plataforma personalizada para a suas nessecidades de escrita...',
-    'Acompanhamento de seus resultados periódicamente..'
+    'Criando conteúdo incrível...',
+    'Otimizando para SEO...',
+    'Gerando artigos únicos...',
+    'Escrevendo posts envolventes...'
 ];
 
 let textIndex = 0;

@@ -1,38 +1,320 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="redatoflow_mobile">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>redatoflow_mobile</title>
-  <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escrita360 - Transforme sua Escrita com IA</title>
+    <meta name="description" content="A ferramenta de escrita mais avançada do mercado. Crie conteúdo profissional com inteligência artificial.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <i class="fas fa-pen-nib"></i>
+                <span>Escrita360</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#pricing">Preços</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-secondary">Entrar</button>
+                <button class="btn-primary">Começar Grátis</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Transforme sua <span class="gradient-text">Escrita</span> com Inteligência Artificial
+                </h1>
+                <p class="hero-description">
+                    Crie conteúdo profissional, envolvente e otimizado em segundos. O Escrita360 é a ferramenta definitiva para escritores, marketers e criadores de conteúdo.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Começar Gratuitamente
+                    </button>
+                    <button class="btn-outline btn-large">
+                        <i class="fas fa-play"></i>
+                        Ver Demonstração
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <strong>50k+</strong>
+                        <span>Usuários Ativos</span>
+                    </div>
+                    <div class="stat">
+                        <strong>1M+</strong>
+                        <span>Textos Criados</span>
+                    </div>
+                    <div class="stat">
+                        <strong>99%</strong>
+                        <span>Satisfação</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="typing-animation">
+                        <div class="typing-text">Criando conteúdo incrível...</div>
+                        <div class="cursor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recursos Poderosos para Todos os Tipos de Escrita</h2>
+                <p>Descubra como o Escrita360 pode revolucionar seu processo criativo</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>IA Avançada</h3>
+                    <p>Algoritmos de última geração que entendem contexto e criam conteúdo relevante e original.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Múltiplos Idiomas</h3>
+                    <p>Crie conteúdo em mais de 30 idiomas com qualidade nativa e naturalidade perfeita.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Templates Prontos</h3>
+                    <p>Mais de 100 templates para diferentes tipos de conteúdo: emails, posts, artigos e muito mais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>SEO Otimizado</h3>
+                    <p>Conteúdo automaticamente otimizado para mecanismos de busca, aumentando sua visibilidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Colaboração</h3>
+                    <p>Trabalhe em equipe com recursos de colaboração em tempo real e controle de versões.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100% Seguro</h3>
+                    <p>Seus dados são protegidos com criptografia de ponta e nunca são compartilhados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Planos que Cabem no Seu Bolso</h2>
+                <p>Escolha o plano ideal para suas necessidades</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Gratuito</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">0</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 5.000 palavras/mês</li>
+                        <li><i class="fas fa-check"></i> 10 templates básicos</li>
+                        <li><i class="fas fa-check"></i> Suporte por email</li>
+                        <li><i class="fas fa-times"></i> Sem colaboração</li>
+                        <li><i class="fas fa-times"></i> Sem SEO avançado</li>
+                    </ul>
+                    <button class="btn-outline">Começar Grátis</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Mais Popular</div>
+                    <div class="pricing-header">
+                        <h3>Profissional</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">47</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 100.000 palavras/mês</li>
+                        <li><i class="fas fa-check"></i> Todos os templates</li>
+                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                        <li><i class="fas fa-check"></i> Colaboração em equipe</li>
+                        <li><i class="fas fa-check"></i> SEO avançado</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                    </ul>
+                    <button class="btn-primary">Escolher Plano</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Empresa</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">147</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Palavras ilimitadas</li>
+                        <li><i class="fas fa-check"></i> Templates personalizados</li>
+                        <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                        <li><i class="fas fa-check"></i> Equipes ilimitadas</li>
+                        <li><i class="fas fa-check"></i> White-label</li>
+                        <li><i class="fas fa-check"></i> Integração completa</li>
+                    </ul>
+                    <button class="btn-outline">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>O Que Nossos Clientes Dizem</h2>
+                <p>Mais de 50.000 profissionais confiam no Escrita360</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"O Escrita360 revolucionou minha produtividade. Consigo criar conteúdo de qualidade em uma fração do tempo que levava antes."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Maria Rodrigues</h4>
+                            <span>Marketing Manager</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"A qualidade do conteúdo gerado é impressionante. Meus clientes ficaram surpresos com os resultados."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>João Silva</h4>
+                            <span>Freelancer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Interface intuitiva e resultados excepcionais. É a ferramenta que faltava no meu arsenal de marketing."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AC</div>
+                        <div class="author-info">
+                            <h4>Ana Costa</h4>
+                            <span>CEO da StartupX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto para Transformar sua Escrita?</h2>
+                <p>Junte-se a milhares de profissionais que já descobriram o poder do Escrita360</p>
+                <div class="cta-actions">
+                    <button class="btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Começar Gratuitamente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <i class="fas fa-pen-nib"></i>
+                        <span>Escrita360</span>
+                    </div>
+                    <p>A ferramenta de escrita mais avançada do mercado brasileiro.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Produto</h4>
+                        <ul>
+                            <li><a href="#features">Recursos</a></li>
+                            <li><a href="#pricing">Preços</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Empresa</h4>
+                        <ul>
+                            <li><a href="#">Sobre</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Carreiras</a></li>
+                            <li><a href="#contact">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Suporte</h4>
+                        <ul>
+                            <li><a href="#">Central de Ajuda</a></li>
+                            <li><a href="#">Tutoriais</a></li>
+                            <li><a href="#">Status</a></li>
+                            <li><a href="#">Comunidade</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Escrita360. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
