@@ -24,7 +24,69 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Animação de typing no hero
+// Animação de escrita no caderno
+const notebookTexts = [
+    'Além disso, é fundamental que...',
+    'A conclusão deve ser clara e...',
+    'Portanto, podemos afirmar que...',
+    'Em suma, a proposta de intervenção...',
+    'Dessa forma, é possível concluir...'
+];
+
+let notebookTextIndex = 0;
+let notebookCharIndex = 0;
+let isNotebookDeleting = false;
+
+function notebookTypeWriter() {
+    const animatedText = document.querySelector('.animated-text');
+    if (!animatedText) return;
+    
+    const currentText = notebookTexts[notebookTextIndex];
+    
+    if (isNotebookDeleting) {
+        animatedText.textContent = currentText.substring(0, notebookCharIndex - 1);
+        notebookCharIndex--;
+    } else {
+        animatedText.textContent = currentText.substring(0, notebookCharIndex + 1);
+        notebookCharIndex++;
+    }
+    
+    // Velocidade variável para simular escrita humana
+    let typeSpeed = isNotebookDeleting ? 30 + Math.random() * 20 : 60 + Math.random() * 40;
+    
+    // Pausa extra em espaços e pontuação
+    const currentChar = currentText[notebookCharIndex - 1];
+    if (currentChar === ' ') typeSpeed += 50;
+    if (currentChar === ',' || currentChar === '.') typeSpeed += 100;
+    
+    if (!isNotebookDeleting && notebookCharIndex === currentText.length) {
+        typeSpeed = 3000; // Pausa mais longa para ler
+        isNotebookDeleting = true;
+    } else if (isNotebookDeleting && notebookCharIndex === 0) {
+        isNotebookDeleting = false;
+        notebookTextIndex = (notebookTextIndex + 1) % notebookTexts.length;
+        typeSpeed = 800;
+    }
+    
+    setTimeout(notebookTypeWriter, typeSpeed);
+}
+
+// Animação de entrada das linhas já escritas
+function animateCompletedLines() {
+    const completedLines = document.querySelectorAll('.line.completed');
+    completedLines.forEach((line, index) => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateX(-10px)';
+        
+        setTimeout(() => {
+            line.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            line.style.opacity = '0.8';
+            line.style.transform = 'translateX(0)';
+        }, index * 200);
+    });
+}
+
+// Animação de typing no hero (mantendo a original)
 const typingText = document.querySelector('.typing-text');
 const texts = [
     'Analisando sua redação...',
@@ -38,6 +100,8 @@ let charIndex = 0;
 let isDeleting = false;
 
 function typeWriter() {
+    if (!typingText) return;
+    
     const currentText = texts[textIndex];
     
     if (isDeleting) {
@@ -62,9 +126,18 @@ function typeWriter() {
     setTimeout(typeWriter, typeSpeed);
 }
 
-// Iniciar animação de typing
+// Iniciar animações
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(typeWriter, 1000);
+    // Animação das linhas já escritas no caderno
+    setTimeout(animateCompletedLines, 500);
+    
+    // Animação de escrita no caderno
+    setTimeout(notebookTypeWriter, 2000);
+    
+    // Animação de typing original (se existir o elemento)
+    if (typingText) {
+        setTimeout(typeWriter, 1000);
+    }
 });
 
 // Animação de entrada dos elementos
