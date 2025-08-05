@@ -28,7 +28,7 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     background-color: var(--background-color);
     color: var(--text-primary);
     line-height: 1.6;
@@ -136,7 +136,7 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing) 0;
+    padding: var(--spacing) var(--padding-large);
 }
 
 .nav-brand {
@@ -146,6 +146,7 @@ h3 {
     font-weight: 800;
     font-size: 18px;
     color: var(--primary-color);
+
 }
 
 .nav-brand i {
@@ -226,6 +227,7 @@ h3 {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-left: auto;
 }
 
 .hero-visual {
@@ -275,6 +277,7 @@ h3 {
 .section-header {
     text-align: center;
     margin-bottom: 60px;
+    
 }
 
 .section-header h2 {
