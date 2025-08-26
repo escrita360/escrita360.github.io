@@ -1,315 +1,393 @@
-// Smooth scrolling para links de navegação
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+// Modern UX/UI JavaScript for Escrita360
+class ModernUX {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupNavigation();
+        this.setupScrollEffects();
+        this.setupAnimations();
+        this.setupPricingToggle();
+        this.setupNotebookAnimation();
+        this.setupAccessibility();
+        this.setupPerformance();
+    }
+
+    // Modern Navigation with better UX
+    setupNavigation() {
+        const header = document.querySelector('.header');
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        const updateHeader = () => {
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Auto-hide header on scroll down, show on scroll up
+            if (Math.abs(scrollY - lastScrollY) < 10) return;
+            
+            if (scrollY > lastScrollY && scrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = scrollY;
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
+
+        // Smooth scroll with better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    // Modern scroll effects
+    setupScrollEffects() {
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Apply to elements
+        document.querySelectorAll('.card, .feature-item, .stat').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            fadeInObserver.observe(el);
+        });
+
+        // Parallax effect (performance optimized)
+        let parallaxTicking = false;
+        const updateParallax = () => {
+            const scrolled = window.pageYOffset;
+            const heroVisual = document.querySelector('.hero-visual');
+            
+            if (heroVisual && scrolled < window.innerHeight) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+            parallaxTicking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!parallaxTicking) {
+                requestAnimationFrame(updateParallax);
+                parallaxTicking = true;
+            }
+        });
+    }
+
+    // Enhanced animations
+    setupAnimations() {
+        // Stagger animations for grids
+        const animateGrid = (selector, delay = 100) => {
+            const items = document.querySelectorAll(selector);
+            items.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = `opacity 0.5s ease ${index * delay}ms, transform 0.5s ease ${index * delay}ms`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 200);
+            });
+        };
+
+        // Apply to feature grids
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => animateGrid('.feature-card', 150), 500);
+        });
+
+        // Button hover effects with better performance
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.willChange = 'transform';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.willChange = 'auto';
+            });
+        });
+    }
+
+    // Pricing toggle with smooth transitions
+    setupPricingToggle() {
+        const toggle = document.getElementById('pricing-toggle');
+        if (!toggle) return;
+
+        toggle.addEventListener('change', function() {
+            const monthlyElements = document.querySelectorAll('.amount.monthly');
+            const yearlyElements = document.querySelectorAll('.amount.yearly');
+            
+            const fadeOut = (elements) => {
+                elements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(-10px)';
+                });
+            };
+            
+            const fadeIn = (elements) => {
+                setTimeout(() => {
+                    elements.forEach(el => {
+                        el.style.display = this.checked ? 'inline' : 'none';
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+                }, 150);
+            };
+
+            if (this.checked) {
+                fadeOut(monthlyElements);
+                fadeIn(yearlyElements);
+                monthlyElements.forEach(el => el.style.display = 'none');
+                yearlyElements.forEach(el => el.style.display = 'inline');
+            } else {
+                fadeOut(yearlyElements);
+                fadeIn(monthlyElements);
+                yearlyElements.forEach(el => el.style.display = 'none');
+                monthlyElements.forEach(el => el.style.display = 'inline');
+            }
+        });
+    }
+
+    // Enhanced notebook animation
+    setupNotebookAnimation() {
+        const texts = [
+            'A democracia no Brasil enfrenta...',
+            'É fundamental analisarmos os impactos...',
+            'Portanto, a proposta de intervenção...',
+            'Em suma, é necessário que o Estado...'
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        const typeEffect = () => {
+            const animatedText = document.querySelector('.animated-text');
+            if (!animatedText) return;
+
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                animatedText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                animatedText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let speed = isDeleting ? 30 : 80;
+            speed += Math.random() * 50; // Human-like variation
+
+            if (!isDeleting && charIndex === currentText.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                speed = 500;
+            }
+
+            setTimeout(typeEffect, speed);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeEffect, 1500);
+        });
+    }
+
+    // Accessibility improvements
+    setupAccessibility() {
+        // Keyboard navigation for custom components
+        document.querySelectorAll('.btn, .nav-menu a').forEach(element => {
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    element.click();
+                }
+            });
+        });
+
+        // Focus trap for modals (if any)
+        const trapFocus = (element) => {
+            const focusableElements = element.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            lastFocusable.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            firstFocusable.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+        };
+
+        // Reduce motion for users who prefer it
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--transition-fast', '0.01ms');
+            document.documentElement.style.setProperty('--transition-base', '0.01ms');
+            document.documentElement.style.setProperty('--transition-slow', '0.01ms');
+        }
+
+        // Announce dynamic content changes to screen readers
+        const announceToScreenReader = (message) => {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        };
+
+        // Example usage for pricing toggle
+        const pricingToggle = document.getElementById('pricing-toggle');
+        if (pricingToggle) {
+            pricingToggle.addEventListener('change', () => {
+                const period = pricingToggle.checked ? 'anual' : 'mensal';
+                announceToScreenReader(`Preços alterados para cobrança ${period}`);
+            });
+        }
+    }
+
+    // Performance optimizations
+    setupPerformance() {
+        // Lazy loading for images
+        if ('loading' in HTMLImageElement.prototype) {
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            });
+        } else {
+            // Fallback for older browsers
+            const lazyImageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        lazyImageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                lazyImageObserver.observe(img);
+            });
+        }
+
+        // Preload critical resources
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap';
+        preloadLink.as = 'style';
+        document.head.appendChild(preloadLink);
+
+        // Service Worker for offline functionality (future enhancement)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .catch(() => {
+                        // Service worker not available, that's okay
+                    });
+            });
+        }
+    }
+}
+
+// FAQ functionality
+const setupFAQ = () => {
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
         }
     });
-});
-
-// Efeito de scroll no header
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = 'none';
-    }
-});
-
-// Animação de escrita no caderno
-const notebookTexts = [
-    'Além disso, é fundamental que...',
-    'A conclusão deve ser clara e...',
-    'Portanto, podemos afirmar que...',
-    'Em suma, a proposta de intervenção...',
-    'Dessa forma, é possível concluir...'
-];
-
-let notebookTextIndex = 0;
-let notebookCharIndex = 0;
-let isNotebookDeleting = false;
-
-function notebookTypeWriter() {
-    const animatedText = document.querySelector('.animated-text');
-    if (!animatedText) return;
-    
-    const currentText = notebookTexts[notebookTextIndex];
-    
-    if (isNotebookDeleting) {
-        animatedText.textContent = currentText.substring(0, notebookCharIndex - 1);
-        notebookCharIndex--;
-    } else {
-        animatedText.textContent = currentText.substring(0, notebookCharIndex + 1);
-        notebookCharIndex++;
-    }
-    
-    // Velocidade variável para simular escrita humana
-    let typeSpeed = isNotebookDeleting ? 30 + Math.random() * 20 : 60 + Math.random() * 40;
-    
-    // Pausa extra em espaços e pontuação
-    const currentChar = currentText[notebookCharIndex - 1];
-    if (currentChar === ' ') typeSpeed += 50;
-    if (currentChar === ',' || currentChar === '.') typeSpeed += 100;
-    
-    if (!isNotebookDeleting && notebookCharIndex === currentText.length) {
-        typeSpeed = 3000; // Pausa mais longa para ler
-        isNotebookDeleting = true;
-    } else if (isNotebookDeleting && notebookCharIndex === 0) {
-        isNotebookDeleting = false;
-        notebookTextIndex = (notebookTextIndex + 1) % notebookTexts.length;
-        typeSpeed = 800;
-    }
-    
-    setTimeout(notebookTypeWriter, typeSpeed);
-}
-
-// Animação de entrada das linhas já escritas
-function animateCompletedLines() {
-    const completedLines = document.querySelectorAll('.line.completed');
-    completedLines.forEach((line, index) => {
-        line.style.opacity = '0';
-        line.style.transform = 'translateX(-10px)';
-        
-        setTimeout(() => {
-            line.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            line.style.opacity = '0.8';
-            line.style.transform = 'translateX(0)';
-        }, index * 200);
-    });
-}
-
-// Animação de typing no hero (mantendo a original)
-const typingText = document.querySelector('.typing-text');
-const texts = [
-    'Analisando sua redação...',
-    'Avaliando as 5 competências...',
-    'Gerando feedback personalizado...',
-    'Identificando pontos de melhoria...'
-];
-
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-
-function typeWriter() {
-    if (!typingText) return;
-    
-    const currentText = texts[textIndex];
-    
-    if (isDeleting) {
-        typingText.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingText.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-    }
-    
-    let typeSpeed = isDeleting ? 50 : 100;
-    
-    if (!isDeleting && charIndex === currentText.length) {
-        typeSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typeSpeed = 500;
-    }
-    
-    setTimeout(typeWriter, typeSpeed);
-}
-
-// Iniciar animações
-document.addEventListener('DOMContentLoaded', function() {
-    // Animação das linhas já escritas no caderno
-    setTimeout(animateCompletedLines, 500);
-    
-    // Animação de escrita no caderno
-    setTimeout(notebookTypeWriter, 2000);
-    
-    // Animação de typing original (se existir o elemento)
-    if (typingText) {
-        setTimeout(typeWriter, 1000);
-    }
-});
-
-// Animação de entrada dos elementos
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Aplicar animação aos elementos
-document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.feature-card, .pricing-card, .testimonial-card');
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
+// Initialize everything
+document.addEventListener('DOMContentLoaded', () => {
+    new ModernUX();
+    setupFAQ();
 });
 
-// Contador animado para estatísticas
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    function updateCounter() {
-        start += increment;
-        if (start < target) {
-            element.textContent = Math.floor(start).toLocaleString();
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target.toLocaleString();
-        }
-    }
-    
-    updateCounter();
-}
-
-// Ativar contadores quando visíveis
-const statsObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const stats = entry.target.querySelectorAll('.stat strong');
-            stats.forEach(stat => {
-                const text = stat.textContent;
-                let target = 0;
-                
-                if (text.includes('k')) {
-                    target = parseInt(text) * 1000;
-                    stat.dataset.suffix = 'k+';
-                } else if (text.includes('M')) {
-                    target = parseInt(text) * 1000000;
-                    stat.dataset.suffix = 'M+';
-                } else if (text.includes('%')) {
-                    target = parseInt(text);
-                    stat.dataset.suffix = '%';
-                } else {
-                    target = parseInt(text);
-                    stat.dataset.suffix = '+';
-                }
-                
-                stat.textContent = '0';
-                animateCounter(stat, target);
-                
-                // Adicionar sufixo após animação
-                setTimeout(() => {
-                    if (stat.dataset.suffix) {
-                        stat.textContent += stat.dataset.suffix.replace('+', '+');
-                    }
-                }, 2000);
-            });
-            statsObserver.unobserve(entry.target);
-        }
-    });
+// Global error handling
+window.addEventListener('error', (e) => {
+    console.warn('Non-critical error:', e.error);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const heroStats = document.querySelector('.hero-stats');
-    if (heroStats) {
-        statsObserver.observe(heroStats);
-    }
-});
-
-// Modal para demonstração (placeholder)
-function showDemo() {
-    alert('Demonstração em breve! Entre em contato para mais informações.');
-}
-
-// Event listeners para CTAs
-document.addEventListener('DOMContentLoaded', function() {
-    const demoButtons = document.querySelectorAll('button:contains("Ver Demonstração")');
-    demoButtons.forEach(button => {
-        if (button.textContent.includes('Ver Demonstração')) {
-            button.addEventListener('click', showDemo);
-        }
-    });
-    
-    // Scroll suave para seções
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetSection.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+// Performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const navigation = performance.getEntriesByType('navigation')[0];
+            if (navigation.loadEventEnd > 3000) {
+                console.info('Page load time could be improved');
             }
-        });
-    });
-});
-
-// Efeito parallax suave no hero
-window.addEventListener('scroll', function() {
-    const scrolled = window.pageYOffset;
-    const heroVisual = document.querySelector('.hero-visual');
-    
-    if (heroVisual && scrolled < window.innerHeight) {
-        heroVisual.style.transform = `translateY(${scrolled * 0.3}px)`;
-    }
-});
-
-// FAQ accordion functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', function() {
-            // Fechar todos os outros itens
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle do item atual
-            item.classList.toggle('active');
-        });
-    });
-});
-
-// Lazy loading para melhor performance
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
+        }, 0);
     });
 }
