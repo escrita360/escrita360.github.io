@@ -312,6 +312,7 @@ p {
 }
 
 .section-header h2 {
+    margin-top: var(--space-6);
     margin-bottom: var(--space-8);
 }
 
@@ -335,6 +336,7 @@ p {
     font-size: var(--font-size-3xl);
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
+    margin-top: var(--space-8);
     margin-bottom: var(--space-12);
     text-align: center;
 }
@@ -1486,7 +1488,7 @@ input:checked + .slider:before {
 
 /* Differential Section */
 .differential {
-    padding: 80px 0;
+    padding: 80px 0 40px 0;
     background: var(--surface-color);
 }
 
@@ -1551,7 +1553,7 @@ input:checked + .slider:before {
 
 /* Platform Differences Section */
 .platform-differences {
-    padding: 100px 0;
+    padding: 40px 0 100px 0;
     background: var(--card-color);
 }
 
