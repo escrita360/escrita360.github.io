@@ -2294,7 +2294,7 @@ input:checked + .slider:before {
         border-width: 2px;
     }
 }
-        
+        gap: 20px;
 
 
     .methodology-highlight {
@@ -2376,7 +2376,7 @@ input:checked + .slider:before {
     .page::before {
         left: 18px;
     }
-
+}
 
 /* Loading and Interaction States */
 .loading {
