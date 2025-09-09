@@ -312,7 +312,7 @@ p {
 }
 
 .section-header h2 {
-    margin-top: var(--space-6);
+    margin-top: 0;
     margin-bottom: var(--space-8);
 }
 
@@ -939,6 +939,7 @@ section:first-of-type {
     width: 320px;
     height: 240px;
     position: relative;
+    margin: 0 auto;
     transform: perspective(600px) rotateY(-15deg);
     transition: transform 0.3s ease;
 }
@@ -984,7 +985,8 @@ section:first-of-type {
     height: 90%;
     position: absolute;
     top: 5%;
-    left: 8%;
+    left: 50%;
+    transform: translateX(-50%);
     border-radius: 4px;
     box-shadow: 
         inset 0 0 0 1px #E5E5DC,
@@ -993,7 +995,7 @@ section:first-of-type {
 }
 
 .page {
-    padding: 20px 30px 20px 35px;
+    padding: 20px 30px 20px 38px;
     height: 100%;
     position: relative;
 }
@@ -1001,7 +1003,7 @@ section:first-of-type {
 .page::before {
     content: '';
     position: absolute;
-    left: 25px;
+    left: 28px;
     top: 0;
     bottom: 0;
     width: 2px;
@@ -1042,10 +1044,13 @@ section:first-of-type {
     font-weight: 600;
 }
 
+/* Animação do texto digitado */
 .animated-text {
     display: inline-block;
     min-height: 16px;
     position: relative;
+    min-width: 10px;
+    font-family: inherit;
 }
 
 .animated-text::after {
@@ -1078,11 +1083,18 @@ section:first-of-type {
     animation: blink 1s infinite;
     margin-left: 4px;
     position: relative;
+    display: inline-block;
 }
 
 @keyframes blink {
     0%, 50% { opacity: 1; }
     51%, 100% { opacity: 0; }
+}
+
+/* Fallback para quando JavaScript não carrega */
+.animated-text:empty::before {
+    content: 'A democracia no Brasil enfrenta...';
+    opacity: 0.8;
 }
 
 @keyframes fadeInLine {
@@ -1096,6 +1108,76 @@ section:first-of-type {
     }
 }
 
+/* Animações sequenciais das linhas do notebook */
+.line-1, .line-2, .line-3 {
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.line-1 {
+    animation: fadeInLine 0.8s ease-out 0.5s forwards,
+               typewriterReveal 2.5s steps(40, end) 0.5s forwards;
+}
+
+.line-2 {
+    animation: fadeInLine 0.8s ease-out 1.2s forwards,
+               typewriterReveal 2.8s steps(35, end) 1.2s forwards;
+}
+
+.line-3 {
+    animation: fadeInLine 0.8s ease-out 1.9s forwards,
+               typewriterReveal 3.2s steps(45, end) 1.9s forwards;
+}
+
+.line-4 {
+    opacity: 0;
+    animation: fadeInLine 0.8s ease-out 2.6s forwards;
+}
+
+/* Efeito de revelação tipo máquina de escrever */
+@keyframes typewriterReveal {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Overlay para criar efeito de digitação */
+.line-1::before, .line-2::before, .line-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--card-color);
+    animation: revealText 1.8s ease-out forwards;
+}
+
+.line-1::before {
+    animation-delay: 0.8s;
+}
+
+.line-2::before {
+    animation-delay: 1.5s;
+}
+
+.line-3::before {
+    animation-delay: 2.2s;
+}
+
+@keyframes revealText {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
 .typing-animation {
     display: flex;
     align-items: center;
@@ -1106,7 +1188,7 @@ section:first-of-type {
 
 /* Features Section */
 .features {
-    padding: 80px 0;
+    padding: 40px 0 80px 0;
     background: var(--card-color);
 }
 
@@ -1157,6 +1239,25 @@ section:first-of-type {
     margin: 0 auto var(--padding-medium);
     color: white;
     font-size: 20px;
+}
+
+.feature-icon i {
+    display: block !important;
+    font-style: normal !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+}
+
+/* Fallback caso os ícones do FontAwesome não carreguem */
+.feature-icon i::before {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "FontAwesome", sans-serif !important;
+    font-weight: 900 !important;
+}
+
+/* Fallback específico para o ícone de planejamento se necessário */
+.feature-icon i.fa-calendar-check::before {
+    content: "📅" !important;
+    font-family: emoji !important;
 }
 
 .feature-card h3 {
@@ -1553,7 +1654,7 @@ input:checked + .slider:before {
 
 /* Platform Differences Section */
 .platform-differences {
-    padding: 40px 0 100px 0;
+    padding: 40px 0 60px 0;
     background: var(--card-color);
 }
 
@@ -2090,6 +2191,7 @@ input:checked + .slider:before {
     .notebook {
         width: 280px;
         height: 200px;
+        margin: 0 auto;
         transform: perspective(400px) rotateY(-10deg);
     }
     
@@ -2290,6 +2392,27 @@ input:checked + .slider:before {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+    
+    /* Preservar animações essenciais do notebook */
+    .cursor {
+        animation-duration: 1s !important;
+        animation-iteration-count: infinite !important;
+    }
+    
+    .animated-text::after {
+        animation-duration: 0.3s !important;
+        animation-iteration-count: infinite !important;
+    }
+    
+    /* Simplificar animações das linhas em motion reduzida */
+    .line-1, .line-2, .line-3 {
+        animation-duration: 0.01ms !important;
+        opacity: 0.8 !important;
+    }
+    
+    .line-1::before, .line-2::before, .line-3::before {
+        display: none !important;
+    }
 }
 
 /* High contrast */
@@ -2354,6 +2477,7 @@ input:checked + .slider:before {
     .notebook {
         width: 240px;
         height: 180px;
+        margin: 0 auto;
         transform: perspective(300px) rotateY(-8deg);
     }
     
@@ -2370,7 +2494,7 @@ input:checked + .slider:before {
     }
     
     .page {
-        padding: 15px 20px 15px 25px;
+        padding: 15px 20px 15px 28px;
     }
     
     .page-lines {
@@ -2383,7 +2507,28 @@ input:checked + .slider:before {
     }
     
     .page::before {
-        left: 18px;
+        left: 20px;
+        width: 1.5px;
+    }
+    
+    /* Animações mais rápidas no mobile */
+    .line-1 {
+        animation-duration: 0.6s, 1.8s;
+        animation-delay: 0.3s, 0.3s;
+    }
+    
+    .line-2 {
+        animation-duration: 0.6s, 2.0s;
+        animation-delay: 0.8s, 0.8s;
+    }
+    
+    .line-3 {
+        animation-duration: 0.6s, 2.2s;
+        animation-delay: 1.3s, 1.3s;
+    }
+    
+    .line-4 {
+        animation-delay: 1.8s;
     }
 
 

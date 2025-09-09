@@ -1,6 +1,7 @@
 // Modern UX/UI JavaScript for Escrita360
 class ModernUX {
     constructor() {
+        this.notebookAnimationRunning = false;
         this.init();
     }
 
@@ -189,49 +190,108 @@ class ModernUX {
 
     // Enhanced notebook animation
     setupNotebookAnimation() {
-        const texts = [
-            'A democracia no Brasil enfrenta...',
-            'É fundamental analisarmos os impactos...',
-            'Portanto, a proposta de intervenção...',
-            'Em suma, é necessário que o Estado...'
-        ];
+        // Prevenir múltiplas execuções
+        if (this.notebookAnimationRunning) {
+            console.log('Animação do notebook já está rodando');
+            return;
+        }
 
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        const typeEffect = () => {
+        // Aguardar um pouco para garantir que o DOM está pronto
+        const initAnimation = () => {
             const animatedText = document.querySelector('.animated-text');
-            if (!animatedText) return;
-
-            const currentText = texts[textIndex];
+            const cursor = document.querySelector('.cursor');
             
-            if (isDeleting) {
-                animatedText.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                animatedText.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
+            if (!animatedText) {
+                console.warn('Elemento .animated-text não encontrado');
+                return false;
             }
 
-            let speed = isDeleting ? 30 : 80;
-            speed += Math.random() * 50; // Human-like variation
-
-            if (!isDeleting && charIndex === currentText.length) {
-                speed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                speed = 500;
+            // Verificar se já há animação rodando
+            if (animatedText.textContent && animatedText.textContent.length > 0) {
+                console.log('Animação já está ativa, pulando inicialização');
+                return true;
             }
 
-            setTimeout(typeEffect, speed);
+            console.log('Elemento .animated-text encontrado, iniciando animação');
+
+            // Marcar que a animação está rodando
+            this.notebookAnimationRunning = true;
+
+            const texts = [
+                'A democracia no Brasil enfrenta desafios...',
+                'É fundamental analisarmos os impactos sociais...',
+                'Portanto, a proposta de intervenção deve...',
+                'Em suma, é necessário que o Estado promova...'
+            ];
+
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            const typeEffect = () => {
+                if (!animatedText) return;
+
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    animatedText.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    animatedText.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let speed = isDeleting ? 50 : 100;
+                speed += Math.random() * 30;
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    speed = 2500; // Pausa mais longa para ler
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    speed = 800; // Pausa antes do próximo texto
+                }
+
+                setTimeout(typeEffect, speed);
+            };
+
+            // Garantir que o cursor esteja visível
+            if (cursor) {
+                cursor.style.display = 'inline-block';
+                cursor.style.visibility = 'visible';
+            }
+
+            // Detectar se é dispositivo móvel para ajustar timing
+            const isMobile = window.innerWidth <= 480;
+            const delay = isMobile ? 2200 : 3200; // Timing mais rápido no mobile
+            
+            // Iniciar a animação de digitação após as outras linhas aparecerem
+            setTimeout(typeEffect, delay);
+            return true;
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(typeEffect, 1500);
-        });
+        // Tentar inicializar múltiplas vezes
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        const tryInit = () => {
+            attempts++;
+            if (initAnimation()) {
+                console.log('Animação do notebook iniciada com sucesso');
+                return;
+            }
+            
+            if (attempts < maxAttempts) {
+                setTimeout(tryInit, 200);
+            } else {
+                console.warn('Falha ao iniciar animação do notebook após', maxAttempts, 'tentativas');
+                this.notebookAnimationRunning = false; // Reset em caso de falha
+            }
+        };
+
+        // Iniciar as tentativas
+        setTimeout(tryInit, 500);
     }
 
     // Accessibility improvements
@@ -371,14 +431,54 @@ const setupFAQ = () => {
 
 // Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
-    new ModernUX();
-    setupFAQ();
+    try {
+        const modernUX = new ModernUX();
+        setupFAQ();
+        
+        // Verificação adicional para animação do notebook (sem criar nova instância)
+        setTimeout(() => {
+            const animatedText = document.querySelector('.animated-text');
+            if (animatedText && animatedText.textContent === '') {
+                console.log('Tentando reiniciar animação do notebook...');
+                // Reutilizar a instância existente ao invés de criar uma nova
+                modernUX.setupNotebookAnimation();
+            }
+        }, 3000);
+        
+    } catch (error) {
+        console.warn('Erro ao inicializar:', error);
+    }
 });
 
 // Global error handling
 window.addEventListener('error', (e) => {
     console.warn('Non-critical error:', e.error);
 });
+
+// Função para testar a animação manualmente
+window.testNotebookAnimation = function() {
+    console.log('Testando animação do notebook...');
+    const animatedText = document.querySelector('.animated-text');
+    const cursor = document.querySelector('.cursor');
+    
+    console.log('Elemento .animated-text:', animatedText);
+    console.log('Elemento .cursor:', cursor);
+    
+    if (animatedText) {
+        // Parar qualquer animação existente temporariamente
+        const originalText = animatedText.textContent;
+        animatedText.textContent = 'Teste de animação funcionando!';
+        console.log('Texto definido com sucesso');
+        
+        // Restaurar após 3 segundos
+        setTimeout(() => {
+            animatedText.textContent = originalText;
+            console.log('Texto original restaurado');
+        }, 3000);
+    } else {
+        console.error('Elemento .animated-text não encontrado!');
+    }
+};
 
 // Performance monitoring
 if ('performance' in window) {
@@ -388,6 +488,17 @@ if ('performance' in window) {
             if (navigation.loadEventEnd > 3000) {
                 console.info('Page load time could be improved');
             }
+            
+            // Verificar se a animação do notebook está funcionando
+            setTimeout(() => {
+                const animatedText = document.querySelector('.animated-text');
+                if (animatedText && animatedText.textContent.length > 0) {
+                    console.log('✅ Animação do notebook está funcionando');
+                } else {
+                    console.warn('⚠️ Animação do notebook pode não estar funcionando');
+                    console.log('Execute window.testNotebookAnimation() no console para testar');
+                }
+            }, 5000);
         }, 0);
     });
 }
