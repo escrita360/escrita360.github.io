@@ -87,7 +87,7 @@
     --font-family-primary: 'Quicksand', sans-serif;
     
     /* Font Sizes - Responsive Scale */
-    --font-size-xs: 0.75rem;   /* 12px */
+    --font-size-xs: 0.80rem;   /* 12px */
     --font-size-sm: 0.875rem;  /* 14px */
     --font-size-base: 1rem;    /* 16px */
     --font-size-lg: 1.125rem;  /* 18px */
@@ -936,8 +936,8 @@ section:first-of-type {
 .mb-6 { margin-bottom: var(--space-6); }
 .mb-8 { margin-bottom: var(--space-8); }
 .notebook {
-    width: 320px;
-    height: 240px;
+    width: 480px;
+    height: 360px;
     position: relative;
     margin: 0 auto;
     transform: perspective(600px) rotateY(-15deg);
@@ -1210,14 +1210,14 @@ section:first-of-type {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 .feature-card {
     background: var(--background-color);
     border-radius: var(--border-radius);
-    padding: 24px;
+    padding: 14px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--border-color);
@@ -1229,8 +1229,8 @@ section:first-of-type {
 }
 
 .feature-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
@@ -1238,7 +1238,7 @@ section:first-of-type {
     justify-content: center;
     margin: 0 auto var(--padding-medium);
     color: white;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .feature-icon i {
@@ -1668,10 +1668,13 @@ input:checked + .slider:before {
 .difference-card {
     background: var(--background-color);
     border-radius: var(--border-radius);
-    padding: 40px;
+    padding: 16px;
     text-align: center;
     border: 1px solid var(--border-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: var(--font-size-sm);
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 .difference-card:hover {
@@ -1680,8 +1683,8 @@ input:checked + .slider:before {
 }
 
 .difference-icon {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
@@ -1699,7 +1702,27 @@ input:checked + .slider:before {
 
 .difference-card p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 2.5;
+    font-size: var(--font-size-xs);
+    padding: 0 4px;
+}
+
+.difference-card {
+    max-width: 230px;
+    padding: 10px;
+    font-size: var(--font-size-xs);
+}
+
+.difference-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    margin-bottom: var(--space-4);
+}
+
+.difference-card h3 {
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-base);
 }
 
 /* How It Works Styles */
@@ -2189,8 +2212,8 @@ input:checked + .slider:before {
     
     /* Notebook responsive */
     .notebook {
-        width: 280px;
-        height: 200px;
+        width: 420px;
+        height: 300px;
         margin: 0 auto;
         transform: perspective(400px) rotateY(-10deg);
     }
@@ -2475,8 +2498,8 @@ input:checked + .slider:before {
     
     /* Notebook mobile */
     .notebook {
-        width: 240px;
-        height: 180px;
+        width: 360px;
+        height: 270px;
         margin: 0 auto;
         transform: perspective(300px) rotateY(-8deg);
     }
