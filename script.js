@@ -1,7 +1,42 @@
 // Modern UX/UI JavaScript for Escrita360
 class ModernUX {
     constructor() {
-        this.notebookAnimationRunning = false;
+               // Dropdown menu functionality
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            if (toggle && menu) {
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isActive = dropdown.classList.contains('active');
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.dropdown').forEach(d => {
+                        d.classList.remove('active');
+                        d.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+                    });
+                    
+                    // Toggle current dropdown
+                    if (!isActive) {
+                        dropdown.classList.add('active');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            }
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const toggle = dropdown.querySelector('.dropdown-toggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });is.notebookAnimationRunning = false;
         this.init();
     }
 
@@ -20,6 +55,30 @@ class ModernUX {
         const header = document.querySelector('.header');
         let lastScrollY = window.scrollY;
         let ticking = false;
+
+        // Hamburger menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                const isActive = navMenu.classList.contains('active');
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navToggle.setAttribute('aria-expanded', !isActive);
+                
+                // Close menu when clicking outside
+                if (!isActive) {
+                    document.addEventListener('click', (e) => {
+                        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                            navToggle.classList.remove('active');
+                            navMenu.classList.remove('active');
+                            navToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
+            });
+        }
 
         const updateHeader = () => {
             const scrollY = window.scrollY;

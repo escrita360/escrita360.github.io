@@ -28,24 +28,128 @@
                     <i class="fas fa-pen-nib" aria-hidden="true"></i>
                     <span>Escrita360</span>
                 </a>
+                
                 <ul class="nav-menu" role="menubar">
-                    <li role="none"><a href="#features" role="menuitem">Recursos</a></li>
+                    <li role="none" class="dropdown">
+                        <a href="#features" role="menuitem" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Recursos <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h4>Para Estudantes</h4>
+                                <div class="dropdown-grid">
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>Banco de Temas</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-tasks"></i>
+                                        <span>Planejamento de Metas</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Painel de Sentimentos</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-edit"></i>
+                                        <span>Módulo de Escrita</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>Para Professores</h4>
+                                <div class="dropdown-grid">
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-cloud"></i>
+                                        <span>Plataforma Online</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Acompanhamento em Tempo Real</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <i class="fas fa-clipboard-check"></i>
+                                        <span>Avaliação Estruturada</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-footer">
+                                <a href="#features" class="dropdown-link">Ver Todos os Recursos →</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li role="none" class="dropdown">
+                        <a href="#products" role="menuitem" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Produtos <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h4>Planos Disponíveis</h4>
+                                <div class="dropdown-plans">
+                                    <div class="dropdown-plan">
+                                        <div class="plan-header">
+                                            <span class="plan-name">Gratuito</span>
+                                            <span class="plan-price">R$ 0</span>
+                                        </div>
+                                        <p>3 correções por mês, processo completo</p>
+                                    </div>
+                                    <div class="dropdown-plan featured">
+                                        <div class="plan-header">
+                                            <span class="plan-name">Professor</span>
+                                            <span class="plan-price">R$ 47/mês</span>
+                                        </div>
+                                        <p>Até 30 alunos, correções ilimitadas</p>
+                                    </div>
+                                    <div class="dropdown-plan">
+                                        <div class="plan-header">
+                                            <span class="plan-name">Escola</span>
+                                            <span class="plan-price">R$ 197/mês</span>
+                                        </div>
+                                        <p>Solução completa para instituições</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-footer">
+                                <a href="#pricing" class="dropdown-link">Comparar Planos →</a>
+                            </div>
+                        </div>
+                    </li>
                     <li role="none"><a href="#pricing" role="menuitem">Planos</a></li>
-                    <li role="none"><a href="#how-it-works" role="menuitem">Metodologia</a></li>
+                    <li role="none" class="dropdown">
+                        <a href="#how-it-works" role="menuitem" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Metodologia <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="#how-it-works" role="menuitem">Como Funciona</a></li>
+                            <li role="none"><a href="#differential" role="menuitem">Diferencial</a></li>
+                            <li role="none"><a href="#methodology" role="menuitem">Processo Completo</a></li>
+                        </ul>
+                    </li>
                     <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
                 </ul>
+                
+                <div class="nav-actions">
+                    <a href="#pricing" class="btn btn-primary btn-sm">
+                        <i class="fas fa-graduation-cap"></i>
+                        Começar Gratuitamente
+                    </a>
+                    <a href="#demo" class="btn btn-outline btn-sm">
+                        <i class="fas fa-play"></i>
+                        Ver Como Funciona
+                    </a>
+                </div>
+                
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
             </div>
         </nav>
+        
+        <!-- Dropdown Overlay -->
+        <div class="dropdown-overlay"></div>
     </header>
-
-    <!-- Main Content -->
-    <main id="main-content" role="main">
-            </ul>
-            <div class="nav-actions">
-                <a href="#" class="btn-secondary">Fazer Login</a>
-                <a href="#pricing" class="btn-primary">Começar Grátis</a>
-            </div>
-        </nav>
     </header>
 
     <!-- Hero Section -->
@@ -61,16 +165,6 @@
                 <p class="hero-description">
                     Revisão como apoio, não como atalho, respeitando o processo de aprendizagem. A correção complementar com Inteligência Artificial valoriza o processo de reescrita e garante que o aprendizado esteja no centro da experiência.
                 </p>
-                <div class="hero-actions">
-                    <a href="#pricing" class="btn btn-primary btn-lg">
-                        <i class="fas fa-graduation-cap"></i>
-                        Começar Gratuitamente
-                    </a>
-                    <a href="#demo" class="btn btn-outline btn-lg">
-                        <i class="fas fa-play"></i>
-                        Ver Como Funciona
-                    </a>
-                </div>
                 <div class="hero-stats">
                     <div class="stat">
                         <strong>Processo</strong>
