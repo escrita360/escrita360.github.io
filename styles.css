@@ -1801,19 +1801,43 @@ section:first-of-type {
     height: 450px;
     position: relative;
     margin: 0 auto;
-    transform: perspective(600px) rotateY(-15deg);
-    transition: transform 0.3s ease;
+    transform: perspective(800px) rotateY(-12deg) rotateX(5deg);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer; /* Indicar que é interativo */
 }
 
 .notebook:hover {
-    transform: perspective(600px) rotateY(-5deg);
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateY(-8px);
+    filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.3));
+}
+
+/* Estado quando animação está ativa */
+.notebook.animation-active {
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateY(-8px);
+    filter: drop-shadow(0 25px 50px rgba(99, 102, 241, 0.4));
+}
+
+.notebook.animation-active .notebook-cover {
+    box-shadow: 
+        0 15px 40px rgba(99, 102, 241, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.notebook.animation-active .notebook-pages {
+    box-shadow: 
+        inset 0 0 0 1px #E5E5DC,
+        inset 22px 0 0 rgba(99, 102, 241, 0.15),
+        inset 24px 0 0 rgba(99, 102, 241, 0.25),
+        0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .notebook-cover {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     width: 100%;
     height: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
     position: absolute;
     top: 0;
     left: 0;
@@ -1821,8 +1845,21 @@ section:first-of-type {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    box-shadow: 
+        0 8px 25px rgba(99, 102, 241, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
     border: 2px solid rgba(99, 102, 241, 0.8);
+    background-image: 
+        linear-gradient(135deg, transparent 35%, rgba(255, 255, 255, 0.1) 50%, transparent 65%);
+    transition: all 0.3s ease;
+}
+
+.notebook:hover .notebook-cover {
+    box-shadow: 
+        0 12px 35px rgba(99, 102, 241, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .notebook-title {
@@ -1841,18 +1878,29 @@ section:first-of-type {
 }
 
 .notebook-pages {
-    background: #FFFEF7;
+    background: linear-gradient(to bottom, #FFFEF7 0%, #FEFDF5 100%);
     width: 95%;
     height: 90%;
     position: absolute;
     top: 5%;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 4px;
+    border-radius: 6px;
     box-shadow: 
         inset 0 0 0 1px #E5E5DC,
-        inset 20px 0 0 rgba(99, 102, 241, 0.15);
+        inset 22px 0 0 rgba(99, 102, 241, 0.08),
+        inset 24px 0 0 rgba(99, 102, 241, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.notebook:hover .notebook-pages {
+    box-shadow: 
+        inset 0 0 0 1px #E5E5DC,
+        inset 22px 0 0 rgba(99, 102, 241, 0.12),
+        inset 24px 0 0 rgba(99, 102, 241, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .page {
@@ -1941,15 +1989,27 @@ section:first-of-type {
 .cursor {
     color: var(--primary-color);
     font-weight: 100;
-    animation: blink 1s infinite;
-    margin-left: 4px;
+    animation: blink 1.2s infinite;
+    margin-left: 2px;
     position: relative;
     display: inline-block;
+    font-size: 14px;
 }
 
 @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    0%, 45% { opacity: 1; }
+    46%, 100% { opacity: 0; }
+}
+
+/* Melhorar a animação do texto */
+.animated-text {
+    display: inline-block;
+    min-height: 16px;
+    position: relative;
+    min-width: 2px;
+    font-family: inherit;
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
 /* Fallback para quando JavaScript não carrega */
@@ -1964,39 +2024,95 @@ section:first-of-type {
         transform: translateX(-10px);
     }
     to {
-        opacity: 0.8;
+        opacity: 1;
         transform: translateX(0);
     }
 }
 
-/* Animações sequenciais das linhas do notebook */
+@keyframes typewriterSlide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* Animações sequenciais das linhas do notebook - VERSÃO CORRIGIDA */
 .line-1, .line-2, .line-3 {
     opacity: 0;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
+/* Linha 1 - Aparecer e depois animar digitação */
 .line-1 {
-    animation: fadeInLine 0.8s ease-out 0.5s forwards,
-               typewriterReveal 2.5s steps(40, end) 0.5s forwards;
+    animation: fadeInLine 0.8s ease-out 1s forwards;
 }
 
+.line-1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFEF7;
+    transform: translateX(0);
+    animation: typewriterSlide 2.5s steps(30, end) 1.8s forwards;
+}
+
+/* Linha 2 */
 .line-2 {
-    animation: fadeInLine 0.8s ease-out 1.2s forwards,
-               typewriterReveal 2.8s steps(35, end) 1.2s forwards;
+    animation: fadeInLine 0.8s ease-out 2.5s forwards;
 }
 
+.line-2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFEF7;
+    transform: translateX(0);
+    animation: typewriterSlide 2.2s steps(28, end) 3.3s forwards;
+}
+
+/* Linha 3 */
 .line-3 {
-    animation: fadeInLine 0.8s ease-out 1.9s forwards,
-               typewriterReveal 3.2s steps(45, end) 1.9s forwards;
+    animation: fadeInLine 0.8s ease-out 4s forwards;
 }
 
+.line-3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFEF7;
+    transform: translateX(0);
+    animation: typewriterSlide 2.8s steps(35, end) 4.8s forwards;
+}
+
+/* Linha 4 - Onde acontece a digitação em tempo real */
 .line-4 {
     opacity: 0;
-    animation: fadeInLine 0.8s ease-out 2.6s forwards;
+    animation: fadeInLine 0.8s ease-out 6s forwards;
 }
 
 /* Efeito de revelação tipo máquina de escrever */
+@keyframes typewriterEffect {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
 @keyframes typewriterReveal {
     from {
         width: 0;
@@ -2004,30 +2120,6 @@ section:first-of-type {
     to {
         width: 100%;
     }
-}
-
-/* Overlay para criar efeito de digitação */
-.line-1::before, .line-2::before, .line-3::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: var(--card-color);
-    animation: revealText 1.8s ease-out forwards;
-}
-
-.line-1::before {
-    animation-delay: 0.8s;
-}
-
-.line-2::before {
-    animation-delay: 1.5s;
-}
-
-.line-3::before {
-    animation-delay: 2.2s;
 }
 
 @keyframes revealText {

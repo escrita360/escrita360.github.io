@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Animação Notebook - Escrita360</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .debug-header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .debug-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .notebook-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        
+        /* Estilos do notebook idênticos ao site principal */
+        .notebook {
+            width: 600px;
+            height: 450px;
+            position: relative;
+            margin: 0 auto;
+            transform: perspective(800px) rotateY(-12deg) rotateX(5deg);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer; /* Indicar que é interativo */
+        }
+
+        .notebook:hover {
+            transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateY(-8px);
+            filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.3));
+        }
+
+        /* Estado quando animação está ativa */
+        .notebook.animation-active {
+            transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateY(-8px);
+            filter: drop-shadow(0 25px 50px rgba(99, 102, 241, 0.4));
+        }
+
+        .notebook.animation-active .notebook-cover {
+            box-shadow: 
+                0 15px 40px rgba(99, 102, 241, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .notebook.animation-active .notebook-pages {
+            box-shadow: 
+                inset 0 0 0 1px #E5E5DC,
+                inset 22px 0 0 rgba(99, 102, 241, 0.15),
+                inset 24px 0 0 rgba(99, 102, 241, 0.25),
+                0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .notebook-cover {
+            background: linear-gradient(135deg, #1D4ED8, #1A42C2);
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 
+                0 8px 25px rgba(99, 102, 241, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(99, 102, 241, 0.8);
+            background-image: 
+                linear-gradient(135deg, transparent 35%, rgba(255, 255, 255, 0.1) 50%, transparent 65%);
+            transition: all 0.3s ease;
+        }
+
+        .notebook:hover .notebook-cover {
+            box-shadow: 
+                0 12px 35px rgba(99, 102, 241, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .notebook-title {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .notebook-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .notebook-pages {
+            background: linear-gradient(to bottom, #FFFEF7 0%, #FEFDF5 100%);
+            width: 95%;
+            height: 90%;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 6px;
+            box-shadow: 
+                inset 0 0 0 1px #E5E5DC,
+                inset 22px 0 0 rgba(99, 102, 241, 0.08),
+                inset 24px 0 0 rgba(99, 102, 241, 0.15),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .notebook:hover .notebook-pages {
+            box-shadow: 
+                inset 0 0 0 1px #E5E5DC,
+                inset 22px 0 0 rgba(99, 102, 241, 0.12),
+                inset 24px 0 0 rgba(99, 102, 241, 0.2),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .page {
+            padding: 20px 30px 20px 38px;
+            height: 100%;
+            position: relative;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #1D4ED8;
+            opacity: 0.7;
+        }
+
+        .page-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        .line {
+            height: 16px;
+            position: relative;
+            border-bottom: 1px solid #E0E0E0;
+            padding-top: 2px;
+            color: #000000;
+        }
+
+        .line.filled {
+            color: #2C3E50;
+            font-weight: 500;
+        }
+
+        .line.completed {
+            opacity: 0.8;
+        }
+
+        .line.writing {
+            display: flex;
+            align-items: flex-start;
+            color: #1D4ED8;
+            font-weight: 600;
+        }
+
+        /* Animações das linhas */
+        .line-1, .line-2, .line-3 {
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .line-1 {
+            animation: fadeInLine 0.8s ease-out 1s forwards;
+        }
+
+        .line-1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFFEF7;
+            transform: translateX(0);
+            animation: typewriterSlide 2.5s steps(30, end) 1.8s forwards;
+        }
+
+        .line-2 {
+            animation: fadeInLine 0.8s ease-out 2.5s forwards;
+        }
+
+        .line-2::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFFEF7;
+            transform: translateX(0);
+            animation: typewriterSlide 2.2s steps(28, end) 3.3s forwards;
+        }
+
+        .line-3 {
+            animation: fadeInLine 0.8s ease-out 4s forwards;
+        }
+
+        .line-3::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFFEF7;
+            transform: translateX(0);
+            animation: typewriterSlide 2.8s steps(35, end) 4.8s forwards;
+        }
+
+        .line-4 {
+            opacity: 0;
+            animation: fadeInLine 0.8s ease-out 6s forwards;
+        }
+
+        @keyframes fadeInLine {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes typewriterSlide {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        .animated-text {
+            display: inline-block;
+            min-height: 16px;
+            position: relative;
+            min-width: 2px;
+            font-family: inherit;
+            color: #1D4ED8;
+            font-weight: 500;
+        }
+
+        .cursor {
+            color: #1D4ED8;
+            font-weight: 100;
+            animation: blink 1.2s infinite;
+            margin-left: 2px;
+            position: relative;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        @keyframes blink {
+            0%, 45% { opacity: 1; }
+            46%, 100% { opacity: 0; }
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background: #1D4ED8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #1A42C2;
+        }
+
+        .btn.secondary {
+            background: #6B7280;
+        }
+
+        .btn.secondary:hover {
+            background: #4B5563;
+        }
+
+        .log {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1>🔧 Debug da Animação do Notebook</h1>
+            <p>Ferramenta para testar e debugar a animação da máquina de escrever</p>
+        </div>
+
+        <div class="debug-panel">
+            <h2>Controles</h2>
+            <div class="controls">
+                <button class="btn" onclick="toggleHoverMode()">🖱️ Ativar/Desativar Hover</button>
+                <button class="btn" onclick="simulateHover()">⚡ Simular Hover</button>
+                <button class="btn" onclick="resetAnimation()">🔄 Resetar</button>
+                <button class="btn secondary" onclick="clearLog()">🗑️ Limpar Log</button>
+            </div>
+            <div id="status-display"></div>
+            <div class="status info">
+                <strong>💡 NOVO:</strong> Passe o mouse sobre o notebook para iniciar a animação!
+            </div>
+        </div>
+
+        <div class="notebook-container">
+            <div class="notebook">
+                <div class="notebook-cover">
+                    <div class="notebook-title">Minha Redação</div>
+                    <div class="notebook-subtitle">ENEM 2025</div>
+                </div>
+                <div class="notebook-pages">
+                    <div class="page">
+                        <div class="page-lines">
+                            <div class="line filled completed line-1">O tema da redação é muito importante...</div>
+                            <div class="line filled completed line-2">Devemos sempre argumentar bem...</div>
+                            <div class="line filled completed line-3">A estrutura deve ser clara e objetiva...</div>
+                            <div class="line writing line-4">
+                                <span class="animated-text"></span>
+                                <span class="cursor">|</span>
+                            </div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="debug-panel">
+            <h2>Log de Debug</h2>
+            <div id="debug-log" class="log">Aguardando comandos...\n</div>
+        </div>
+    </div>
+
+    <script>
+        const log = document.getElementById('debug-log');
+        const statusDisplay = document.getElementById('status-display');
+        
+        let typingTimeout;
+        let isTyping = false;
+        let hoverMode = true; // Modo hover ativado por padrão
+        let isHovering = false;
+
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+            log.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function showStatus(message, type = 'success') {
+            statusDisplay.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function clearLog() {
+            log.textContent = 'Log limpo...\n';
+        }
+
+        function resetAnimation() {
+            addLog('Resetando animação...');
+            
+            // Parar digitação atual
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+                isTyping = false;
+            }
+            
+            // Limpar texto
+            const animatedText = document.querySelector('.animated-text');
+            if (animatedText) {
+                animatedText.textContent = '';
+                addLog('Texto limpo');
+            }
+            
+            // Reset das animações CSS das linhas
+            const lines = document.querySelectorAll('.line-1, .line-2, .line-3, .line-4');
+            lines.forEach((line, index) => {
+                line.style.animation = 'none';
+                line.offsetHeight; // Force reflow
+                line.style.animation = '';
+                addLog(`Linha ${index + 1} resetada`);
+            });
+            
+            // Reset estado hover
+            const notebook = document.querySelector('.notebook');
+            if (notebook) {
+                notebook.classList.remove('animation-active');
+            }
+            isHovering = false;
+            
+            showStatus('Animação resetada com sucesso!', 'success');
+        }
+
+        function toggleHoverMode() {
+            hoverMode = !hoverMode;
+            const notebook = document.querySelector('.notebook');
+            
+            if (hoverMode) {
+                addLog('Modo hover ATIVADO', 'success');
+                showStatus('Modo hover ativado! Passe o mouse sobre o notebook.', 'success');
+                if (notebook) {
+                    notebook.style.cursor = 'pointer';
+                }
+            } else {
+                addLog('Modo hover DESATIVADO', 'warning');
+                showStatus('Modo hover desativado. Use os botões para controlar.', 'warning');
+                if (notebook) {
+                    notebook.style.cursor = 'default';
+                    notebook.classList.remove('animation-active');
+                }
+                isHovering = false;
+                if (typingTimeout) {
+                    clearTimeout(typingTimeout);
+                    isTyping = false;
+                }
+            }
+        }
+
+        function simulateHover() {
+            if (!hoverMode) {
+                showStatus('Ative o modo hover primeiro!', 'error');
+                return;
+            }
+            
+            addLog('Simulando hover...');
+            const notebook = document.querySelector('.notebook');
+            
+            if (notebook) {
+                // Simular mouse enter
+                notebook.dispatchEvent(new Event('mouseenter'));
+                
+                setTimeout(() => {
+                    // Simular mouse leave após 5 segundos
+                    notebook.dispatchEvent(new Event('mouseleave'));
+                    addLog('Hover simulado finalizado');
+                }, 5000);
+            }
+        }
+
+        function startTypingAnimation() {
+            const animatedText = document.querySelector('.animated-text');
+            if (!animatedText) {
+                addLog('Elemento animated-text não encontrado!', 'error');
+                return;
+            }
+
+            if (isTyping) {
+                addLog('Animação já está rodando', 'warning');
+                return;
+            }
+
+            addLog('Iniciando animação de digitação...', 'success');
+            isTyping = true;
+
+            const texts = [
+                'A democracia no Brasil enfrenta desafios complexos...',
+                'É fundamental analisarmos os impactos sociais dessa questão...',
+                'Portanto, a proposta de intervenção deve considerar...',
+                'Em suma, é necessário que o Estado promova mudanças...',
+                'Assim, podemos concluir que a educação é essencial...'
+            ];
+
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isPaused = false;
+
+            const typeEffect = () => {
+                // Parar se hover mode estiver ativo e não estiver hovering
+                if (hoverMode && !isHovering) {
+                    addLog('Animação pausada - fora do hover');
+                    return;
+                }
+
+                if (!isTyping) {
+                    addLog('Animação interrompida');
+                    return;
+                }
+
+                const currentText = texts[textIndex];
+                
+                if (isPaused) {
+                    isPaused = false;
+                    typingTimeout = setTimeout(typeEffect, 400);
+                    return;
+                }
+                
+                if (isDeleting) {
+                    animatedText.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    animatedText.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let speed = isDeleting ? 25 : 60;
+                speed += Math.random() * 30;
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    speed = 2500;
+                    isDeleting = true;
+                    addLog(`Texto completo: "${currentText}"`);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    speed = 600;
+                    isPaused = true;
+                    addLog(`Próximo texto: ${textIndex + 1}/${texts.length}`);
+                }
+
+                typingTimeout = setTimeout(typeEffect, speed);
+            };
+
+            // Aguardar as linhas aparecerem
+            const delay = 6500;
+            addLog(`Aguardando ${delay}ms para as linhas aparecerem...`);
+            
+            setTimeout(() => {
+                if (isTyping && (!hoverMode || isHovering)) {
+                    addLog('Iniciando digitação em tempo real!', 'success');
+                    typeEffect();
+                }
+            }, delay);
+        }
+
+        function stopTypingAnimation() {
+            addLog('Parando animação de digitação...');
+            isTyping = false;
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+        }
+
+        // Configurar eventos de hover
+        document.addEventListener('DOMContentLoaded', () => {
+            addLog('Página carregada');
+            
+            const notebook = document.querySelector('.notebook');
+            const animatedText = document.querySelector('.animated-text');
+            const cursor = document.querySelector('.cursor');
+            const lines = document.querySelectorAll('.line-1, .line-2, .line-3, .line-4');
+            
+            addLog(`Elementos encontrados:`);
+            addLog(`- notebook: ${notebook ? '✅' : '❌'}`);
+            addLog(`- animated-text: ${animatedText ? '✅' : '❌'}`);
+            addLog(`- cursor: ${cursor ? '✅' : '❌'}`);
+            addLog(`- linhas: ${lines.length}/4`);
+            
+            if (notebook) {
+                // Event listeners para hover
+                notebook.addEventListener('mouseenter', () => {
+                    if (!hoverMode) return;
+                    
+                    addLog('🖱️ Mouse sobre notebook - iniciando animação', 'success');
+                    isHovering = true;
+                    notebook.classList.add('animation-active');
+                    showStatus('Mouse sobre o notebook - animação iniciada!', 'success');
+                    
+                    startTypingAnimation();
+                });
+
+                notebook.addEventListener('mouseleave', () => {
+                    if (!hoverMode) return;
+                    
+                    addLog('🖱️ Mouse saiu do notebook - pausando animação', 'warning');
+                    isHovering = false;
+                    notebook.classList.remove('animation-active');
+                    showStatus('Mouse saiu do notebook - animação pausada', 'warning');
+                    
+                    stopTypingAnimation();
+                });
+                
+                addLog('Event listeners de hover configurados', 'success');
+            }
+            
+            if (animatedText && cursor && lines.length === 4 && notebook) {
+                showStatus('Tudo pronto! Passe o mouse sobre o notebook para ver a animação.', 'success');
+            } else {
+                showStatus('Alguns elementos estão faltando!', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
