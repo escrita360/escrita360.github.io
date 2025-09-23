@@ -3,9 +3,28 @@ class ModernUX {
     constructor() {
                // Dropdown menu functionality
         const dropdowns = document.querySelectorAll('.dropdown');
+        const overlay = document.querySelector('.dropdown-overlay');
+        
+        // Helper function to manage overlay
+        const updateOverlay = () => {
+            if (!overlay) return;
+            
+            const hasActiveEnhancedDropdown = document.querySelector('.dropdown.active .dropdown-content') !== null;
+            
+            if (hasActiveEnhancedDropdown) {
+                overlay.style.opacity = '1';
+                overlay.style.visibility = 'visible';
+                overlay.style.pointerEvents = 'auto';
+            } else {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+                overlay.style.pointerEvents = 'none';
+            }
+        };
+        
         dropdowns.forEach(dropdown => {
             const toggle = dropdown.querySelector('.dropdown-toggle');
-            const menu = dropdown.querySelector('.dropdown-menu');
+            const menu = dropdown.querySelector('.dropdown-menu') || dropdown.querySelector('.dropdown-content');
             
             if (toggle && menu) {
                 toggle.addEventListener('click', (e) => {
@@ -23,6 +42,9 @@ class ModernUX {
                         dropdown.classList.add('active');
                         toggle.setAttribute('aria-expanded', 'true');
                     }
+                    
+                    // Update overlay based on current state
+                    updateOverlay();
                 });
             }
         });
@@ -35,6 +57,9 @@ class ModernUX {
                     const toggle = dropdown.querySelector('.dropdown-toggle');
                     if (toggle) toggle.setAttribute('aria-expanded', 'false');
                 });
+                
+                // Update overlay
+                updateOverlay();
             }
         });is.notebookAnimationRunning = false;
         this.init();
