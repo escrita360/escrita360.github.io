@@ -61,7 +61,23 @@ class ModernUX {
                 // Update overlay
                 updateOverlay();
             }
-        });is.notebookAnimationRunning = false;
+        });
+
+        // Close dropdown when clicking "Ver Todos os Recursos" button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.dropdown-link-primary')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const toggle = dropdown.querySelector('.dropdown-toggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                });
+                
+                // Update overlay
+                updateOverlay();
+            }
+        });
+        
+        this.notebookAnimationRunning = false;
         this.init();
     }
 

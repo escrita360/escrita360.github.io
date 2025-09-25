@@ -713,6 +713,12 @@ p {
     gap: var(--space-2);
     cursor: pointer;
     transition: color var(--transition-fast);
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
 }
 
 .dropdown-toggle:hover {
@@ -819,6 +825,8 @@ p {
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
+    padding: var(--space-6) var(--space-6) var(--space-6) var(--space-8);
+    margin-left: var(--space-4);
 }
 
 .dropdown-column {
@@ -848,6 +856,14 @@ p {
     text-align: center;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: var(--space-2);
+}
+
+/* Botão Comparar Planos dentro da coluna */
+.dropdown-column .dropdown-footer-right {
+    margin-top: var(--space-6) !important;
+    justify-content: center !important;
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--space-4);
 }
 
 .dropdown-items {
@@ -890,105 +906,47 @@ p {
     line-height: 1.4;
 }
 
-/* Dropdown Split Layout - Two Sides */
-.dropdown-split {
-    display: flex;
-    gap: var(--space-8);
-    align-items: stretch;
+/* Dropdown Resources Grid Layout */
+.dropdown-header {
+    padding: var(--space-4) var(--space-6) 0 var(--space-8);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-4);
 }
 
-.dropdown-left {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    background: var(--gray-50);
-    padding: var(--space-6);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--gray-200);
-}
-
-.dropdown-left h4 {
-    font-size: var(--font-size-lg);
+.dropdown-header h3 {
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
-    margin-bottom: var(--space-4);
-    text-align: left;
-    border-bottom: none;
-    padding-bottom: 0;
+    margin: 0 0 var(--space-4) 0;
 }
 
-.dropdown-audience {
-    margin-bottom: var(--space-4);
+.dropdown-resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    padding: var(--space-6) var(--space-6) var(--space-6) var(--space-8);
+    margin-left: var(--space-4);
 }
 
-.dropdown-audience h5 {
+.dropdown-resources-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.dropdown-resources-section h5 {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
     margin-bottom: var(--space-2);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-}
-
-.dropdown-audience h5 i {
-    font-size: 16px;
-    color: var(--primary-color);
-    width: 18px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.dropdown-audience p {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-}
-
-.dropdown-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-6);
-    background: var(--background-color);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--border-color);
-}
-
-.dropdown-right h4 {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: var(--space-4);
-    text-align: left;
-    border-bottom: none;
-    padding-bottom: 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .dropdown-resources {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-}
-
-.dropdown-resources-section {
-    margin-bottom: var(--space-4);
-}
-
-.dropdown-resources-section:last-child {
-    margin-bottom: 0;
-}
-
-.dropdown-resources-section h5 {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text-primary);
-    margin-bottom: var(--space-2);
-    padding-bottom: var(--space-1);
-    border-bottom: 1px solid var(--border-color);
 }
 
 .dropdown-resource-item {
@@ -999,14 +957,7 @@ p {
     border-radius: var(--radius-lg);
     background: var(--primary-50);
     border: 1px solid var(--primary-200);
-    transition: all var(--transition-fast);
-    cursor: pointer;
-}
-
-.dropdown-resource-item:hover {
-    background: var(--primary-100);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    cursor: default;
 }
 
 .dropdown-resource-item i {
@@ -1313,6 +1264,40 @@ p {
     box-shadow: var(--shadow-md);
 }
 
+/* Botão Ver Todos os Recursos - Posicionado no canto direito */
+.dropdown-footer-right {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-color);
+}
+
+.dropdown-link-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: white !important;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-lg);
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.dropdown-link-primary:hover {
+    color: white !important;
+    background: var(--primary-600);
+    border-color: var(--primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+}
+
 /* Mobile Responsive for Enhanced Dropdowns */
 @media (max-width: 768px) {
     .dropdown-content {
@@ -1341,12 +1326,19 @@ p {
     .dropdown-columns {
         flex-direction: column;
         gap: var(--space-6);
+        padding: var(--space-4);
+        margin-left: 0;
     }
     
     .dropdown-column {
         min-width: 100%;
         max-width: 100%;
         padding: var(--space-3);
+    }
+    
+    .dropdown-column .dropdown-footer-right {
+        margin-top: var(--space-4) !important;
+        justify-content: center !important;
     }
     
     .dropdown-plans {
@@ -1394,34 +1386,39 @@ p {
         padding: var(--space-2) var(--space-4);
     }
     
-    /* Mobile Dropdown Split Layout */
-    .dropdown-split {
-        flex-direction: column;
+    /* Mobile Dropdown Resources Grid Layout */
+    .dropdown-header {
+        padding: var(--space-3) var(--space-4) 0 var(--space-4);
+        margin-bottom: var(--space-3);
+    }
+    
+    .dropdown-header h3 {
+        font-size: var(--font-size-lg);
+        text-align: center;
+    }
+    
+    .dropdown-resources-grid {
+        grid-template-columns: 1fr;
         gap: var(--space-4);
-    }
-    
-    .dropdown-left,
-    .dropdown-right {
         padding: var(--space-4);
+        margin-left: 0;
     }
     
-    .dropdown-left h4,
-    .dropdown-right h4 {
-        font-size: var(--font-size-base);
-        margin-bottom: var(--space-3);
+    .dropdown-footer-right {
+        justify-content: center;
+        margin-top: var(--space-6);
+        padding-top: var(--space-3);
     }
     
-    .dropdown-audience {
-        margin-bottom: var(--space-3);
-    }
-    
-    .dropdown-audience h5 {
-        font-size: var(--font-size-sm);
-        margin-bottom: var(--space-1);
-    }
-    
-    .dropdown-audience p {
+    .dropdown-link-primary {
         font-size: var(--font-size-xs);
+        padding: var(--space-2) var(--space-4);
+        color: white !important;
+    }
+    
+    .dropdown-resources-section h5 {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--space-2);
     }
     
     .dropdown-resource-item {
@@ -1435,10 +1432,6 @@ p {
     
     .dropdown-resource-item span {
         font-size: var(--font-size-xs);
-    }
-    
-    .dropdown-resources-section {
-        margin-bottom: var(--space-3);
     }
     
     .dropdown-resources-section h5 {
@@ -2605,6 +2598,61 @@ input:checked + .slider:before {
     color: white;
 }
 
+/* Target Audience Section */
+.target-audience {
+    padding: 50px 0;
+    background: var(--background-color);
+}
+
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+}
+
+.audience-card {
+    background: var(--card-color);
+    border-radius: var(--radius-xl);
+    padding: 28px 20px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+}
+
+.audience-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.audience-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 32px;
+}
+
+.audience-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.audience-card p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: var(--font-size-sm);
+}
+
 /* Platform Differences Section */
 .platform-differences {
     padding: 40px 0 60px 0;
@@ -3115,8 +3163,20 @@ input:checked + .slider:before {
     .pricing-grid,
     .testimonials-grid,
     .differential-grid,
-    .differences-grid {
+    .differences-grid,
+    .audience-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .audience-grid {
+        gap: 24px;
+        margin-top: 32px;
+    }
+    
+    .audience-card {
+        padding: 24px 20px;
+        margin: 0 auto;
+        max-width: 320px;
     }
     
     .footer-content {
@@ -3320,6 +3380,31 @@ input:checked + .slider:before {
     .grid-cols-3,
     .grid-cols-4 {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .audience-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+    }
+    
+    .dropdown-resources-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-6);
+        padding: var(--space-6) var(--space-6) var(--space-6) var(--space-6);
+        margin-left: var(--space-2);
+    }
+    
+    .dropdown-header {
+        padding: var(--space-4) var(--space-6) 0 var(--space-6);
+    }
+    
+    .dropdown-columns {
+        padding: var(--space-6) var(--space-6) var(--space-6) var(--space-6);
+        margin-left: var(--space-2);
+    }
+    
+    .dropdown-footer-right {
+        justify-content: flex-end;
     }
 }
 
