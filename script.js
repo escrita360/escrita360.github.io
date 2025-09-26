@@ -1,7 +1,7 @@
 // Modern UX/UI JavaScript for Escrita360
 class ModernUX {
     constructor() {
-               // Dropdown menu functionality
+        // Dropdown menu functionality
         const dropdowns = document.querySelectorAll('.dropdown');
         const overlay = document.querySelector('.dropdown-overlay');
         
@@ -77,7 +77,6 @@ class ModernUX {
             }
         });
         
-        this.notebookAnimationRunning = false;
         this.init();
     }
 
@@ -86,41 +85,8 @@ class ModernUX {
         this.setupScrollEffects();
         this.setupAnimations();
         this.setupPricingToggle();
-        this.setupNotebookVisibilityDetection(); // Detectar quando hero fica visível
-        this.setupNotebookAnimation();
         this.setupAccessibility();
         this.setupPerformance();
-    }
-
-    // Detectar quando a seção hero fica visível para iniciar animação
-    setupNotebookVisibilityDetection() {
-        const heroSection = document.querySelector('.hero');
-        if (!heroSection) {
-            console.warn('❌ Seção .hero não encontrada para detecção de visibilidade');
-            return;
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    console.log('👁️ Seção hero ficou visível');
-                    
-                    // Aguardar um pouco e verificar se animação precisa ser iniciada
-                    setTimeout(() => {
-                        const animatedText = document.querySelector('.animated-text');
-                        if (animatedText && !this.notebookAnimationRunning) {
-                            console.log('🎬 Iniciando animação por detecção de visibilidade');
-                            this.setupNotebookAnimation();
-                        }
-                    }, 1000);
-                }
-            });
-        }, {
-            threshold: 0.3 // Quando 30% da seção estiver visível
-        });
-
-        observer.observe(heroSection);
-        console.log('👁️ Observer de visibilidade configurado para seção hero');
     }
 
     // Modern Navigation with better UX
@@ -320,185 +286,6 @@ class ModernUX {
         });
     }
 
-    // Enhanced notebook animation - VERSÃO COM CONTROLE POR HOVER
-    setupNotebookAnimation() {
-        console.log('🎭 Iniciando setup da animação do notebook com controle por hover...');
-        
-        // Prevenir múltiplas execuções
-        if (this.notebookAnimationInitialized) {
-            console.log('❌ Animação do notebook já foi inicializada');
-            return;
-        }
-
-        const notebook = document.querySelector('.notebook');
-        const animatedText = document.querySelector('.animated-text');
-        const cursor = document.querySelector('.cursor');
-        const hero = document.querySelector('.hero');
-        
-        // Verificações básicas
-        if (!notebook) {
-            console.warn('❌ Elemento .notebook não encontrado');
-            return;
-        }
-        
-        if (!animatedText) {
-            console.warn('❌ Elemento .animated-text não encontrado');
-            return;
-        }
-
-        if (!cursor) {
-            console.warn('❌ Elemento .cursor não encontrado');
-            return;
-        }
-
-        console.log('✅ Todos os elementos encontrados');
-        
-        // Marcar como inicializado
-        this.notebookAnimationInitialized = true;
-        this.notebookAnimationRunning = false;
-        this.isHovering = false;
-
-        const texts = [
-            'A democracia no Brasil enfrenta desafios complexos...',
-            'É fundamental analisarmos os impactos sociais...',
-            'Portanto, a proposta de intervenção deve considerar...',
-            'Em suma, é necessário que o Estado promova mudanças...',
-            'Assim, podemos concluir que a educação é essencial...'
-        ];
-
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let isPaused = false;
-        let animationId = null;
-
-        const typeEffect = () => {
-            // Só continuar se estiver em hover e não parado
-            if (!this.isHovering || this.notebookAnimationStopped) {
-                console.log('🛑 Animação pausada - hover:', this.isHovering);
-                return;
-            }
-
-            // Verificar se elemento ainda existe
-            if (!animatedText || !animatedText.parentElement) {
-                console.warn('❌ Elemento animatedText removido do DOM');
-                this.notebookAnimationRunning = false;
-                return;
-            }
-
-            const currentText = texts[textIndex];
-            
-            if (isPaused) {
-                isPaused = false;
-                animationId = setTimeout(typeEffect, 400);
-                return;
-            }
-            
-            if (isDeleting) {
-                animatedText.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                animatedText.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let speed = isDeleting ? 25 : 60;
-            speed += Math.random() * 30;
-
-            if (!isDeleting && charIndex === currentText.length) {
-                speed = 2500; // Pausa para ler
-                isDeleting = true;
-                console.log(`📝 Texto completo: "${currentText}"`);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                speed = 600;
-                isPaused = true;
-                console.log(`🔄 Próximo texto: ${textIndex + 1}/${texts.length}`);
-            }
-
-            animationId = setTimeout(typeEffect, speed);
-        };
-
-        const startTyping = () => {
-            if (this.notebookAnimationRunning) return;
-            
-            console.log('🚀 Iniciando animação de digitação por hover!');
-            this.notebookAnimationRunning = true;
-            
-            // Garantir visibilidade do cursor
-            cursor.style.display = 'inline-block';
-            cursor.style.visibility = 'visible';
-            cursor.style.opacity = '1';
-            
-            // Aguardar as animações CSS das linhas terminarem se necessário
-            const delay = this.cssAnimationsCompleted ? 0 : 6800;
-            
-            setTimeout(() => {
-                if (this.isHovering) {
-                    typeEffect();
-                }
-            }, delay);
-        };
-
-        const stopTyping = () => {
-            console.log('⏸️ Pausando animação de digitação');
-            this.notebookAnimationRunning = false;
-            
-            if (animationId) {
-                clearTimeout(animationId);
-                animationId = null;
-            }
-        };
-
-        const resetAnimation = () => {
-            console.log('� Resetando animação');
-            stopTyping();
-            animatedText.textContent = '';
-            textIndex = 0;
-            charIndex = 0;
-            isDeleting = false;
-            isPaused = false;
-        };
-
-        // Event listeners para hover
-        notebook.addEventListener('mouseenter', () => {
-            console.log('🖱️ Mouse sobre notebook - iniciando animação');
-            this.isHovering = true;
-            
-            // Adicionar classe visual para feedback
-            notebook.classList.add('animation-active');
-            
-            // Iniciar digitação
-            startTyping();
-        });
-
-        notebook.addEventListener('mouseleave', () => {
-            console.log('🖱️ Mouse saiu do notebook - pausando animação');
-            this.isHovering = false;
-            
-            // Remover classe visual
-            notebook.classList.remove('animation-active');
-            
-            // Parar digitação
-            stopTyping();
-        });
-
-        // Marcar que animações CSS foram completadas após delay
-        setTimeout(() => {
-            this.cssAnimationsCompleted = true;
-            console.log('✅ Animações CSS das linhas completadas');
-        }, 7000);
-
-        // Tornar funções disponíveis globalmente para debug
-        this.startTyping = startTyping;
-        this.stopTyping = stopTyping;
-        this.resetAnimation = resetAnimation;
-
-        console.log('✅ Sistema de hover configurado para o notebook');
-        console.log('🖱️ Passe o mouse sobre o notebook para iniciar a animação!');
-    }
-
     // Accessibility improvements
     setupAccessibility() {
         // Keyboard navigation for custom components
@@ -634,7 +421,7 @@ const setupFAQ = () => {
     });
 };
 
-// Initialize everything - VERSÃO MELHORADA
+// Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('🌟 Inicializando sistema Escrita360...');
@@ -648,222 +435,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('✅ Sistema inicializado com sucesso!');
         
-        // Aguardar um pouco mais para garantir que todos os elementos estejam carregados
-        setTimeout(() => {
-            console.log('🔍 Verificando elementos para animação...');
-            const animatedText = document.querySelector('.animated-text');
-            const cursor = document.querySelector('.cursor');
-            
-            if (animatedText && cursor) {
-                console.log('✅ Elementos encontrados, forçando inicialização da animação...');
-                
-                // Garantir que não há animação rodando
-                modernUX.notebookAnimationRunning = false;
-                modernUX.notebookAnimationStopped = false;
-                
-                // Inicializar animação
-                modernUX.setupNotebookAnimation();
-            } else {
-                console.warn('⚠️ Elementos não encontrados:');
-                console.warn('- animated-text:', animatedText);
-                console.warn('- cursor:', cursor);
-                
-                // Tentar novamente após mais tempo
-                setTimeout(() => {
-                    console.log('🔄 Segunda tentativa de inicialização...');
-                    modernUX.notebookAnimationRunning = false;
-                    modernUX.setupNotebookAnimation();
-                }, 5000);
-            }
-        }, 3000);
-        
     } catch (error) {
         console.error('❌ Erro ao inicializar:', error);
     }
-});
-
-// Backup: tentar inicializar quando a página estiver completamente carregada
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        console.log('🔄 Backup: Verificando animação após load completo...');
-        
-        const modernUX = window.modernUXInstance;
-        const animatedText = document.querySelector('.animated-text');
-        
-        if (modernUX && animatedText && (!animatedText.textContent || animatedText.textContent === '')) {
-            console.log('🚀 Iniciando animação via backup...');
-            modernUX.notebookAnimationRunning = false;
-            modernUX.setupNotebookAnimation();
-        }
-    }, 2000);
 });
 
 // Global error handling
 window.addEventListener('error', (e) => {
     console.warn('Non-critical error:', e.error);
 });
-
-// Função para debug rápido da página principal - VERSÃO HOVER
-window.debugMainPageAnimation = function() {
-    console.log('🔧 === DEBUG ANIMAÇÃO PÁGINA PRINCIPAL (HOVER) ===');
-    
-    // Verificar elementos
-    const notebook = document.querySelector('.notebook');
-    const animatedText = document.querySelector('.animated-text');
-    const cursor = document.querySelector('.cursor');
-    const hero = document.querySelector('.hero');
-    const lines = document.querySelectorAll('.line-1, .line-2, .line-3, .line-4');
-    
-    console.log('📋 Elementos encontrados:');
-    console.log('- Notebook:', notebook ? '✅' : '❌');
-    console.log('- Hero section:', hero ? '✅' : '❌');
-    console.log('- Animated text:', animatedText ? '✅' : '❌');
-    console.log('- Cursor:', cursor ? '✅' : '❌');
-    console.log('- Linhas (4 total):', lines.length);
-    
-    if (animatedText) {
-        console.log('📝 Texto atual:', `"${animatedText.textContent}"`);
-    }
-    
-    // Verificar se instância existe
-    const modernUX = window.modernUXInstance;
-    console.log('📦 ModernUX instance:', modernUX ? '✅' : '❌');
-    
-    if (modernUX) {
-        console.log('🏃 Animation initialized:', modernUX.notebookAnimationInitialized);
-        console.log('🏃 Animation running:', modernUX.notebookAnimationRunning);
-        console.log('�️ Is hovering:', modernUX.isHovering);
-        console.log('✅ CSS animations completed:', modernUX.cssAnimationsCompleted);
-    }
-    
-    // Verificar eventos de hover
-    if (notebook) {
-        console.log('🖱️ Notebook tem cursor pointer:', window.getComputedStyle(notebook).cursor);
-        console.log('🎨 Classes do notebook:', notebook.className);
-    }
-    
-    console.log('💡 INSTRUÇÕES:');
-    console.log('1. Passe o mouse SOBRE o notebook para iniciar');
-    console.log('2. Retire o mouse para pausar');
-    console.log('3. Execute forceStartHoverAnimation() para teste');
-    
-    return {
-        notebook,
-        animatedText,
-        cursor,
-        hero,
-        lines,
-        modernUX
-    };
-};
-
-// Função para simular hover e forçar início da animação
-window.forceStartHoverAnimation = function() {
-    console.log('🖱️ Simulando hover no notebook...');
-    
-    const modernUX = window.modernUXInstance;
-    const notebook = document.querySelector('.notebook');
-    
-    if (!modernUX) {
-        console.error('❌ ModernUX instance não encontrada');
-        return;
-    }
-    
-    if (!notebook) {
-        console.error('❌ Notebook não encontrado');
-        return;
-    }
-    
-    // Simular hover
-    modernUX.isHovering = true;
-    notebook.classList.add('animation-active');
-    
-    console.log('� Forçando início da animação...');
-    
-    if (modernUX.startTyping) {
-        modernUX.startTyping();
-    } else {
-        console.warn('⚠️ Função startTyping não disponível');
-    }
-};
-
-// Função para parar animação simulando mouse leave
-window.forceStopHoverAnimation = function() {
-    console.log('🖱️ Simulando saída do mouse...');
-    
-    const modernUX = window.modernUXInstance;
-    const notebook = document.querySelector('.notebook');
-    
-    if (modernUX) {
-        modernUX.isHovering = false;
-        if (notebook) {
-            notebook.classList.remove('animation-active');
-        }
-        
-        if (modernUX.stopTyping) {
-            modernUX.stopTyping();
-        }
-        
-        console.log('⏸️ Animação pausada');
-    }
-};
-
-// Função para forçar restart da animação na página principal
-window.forceRestartMainAnimation = function() {
-    console.log('🔄 Forçando restart da animação na página principal...');
-    
-    const modernUX = window.modernUXInstance;
-    if (!modernUX) {
-        console.error('❌ ModernUX instance não encontrada');
-        return;
-    }
-    
-    // Parar animação atual
-    modernUX.notebookAnimationRunning = false;
-    modernUX.notebookAnimationStopped = true;
-    
-    // Limpar texto
-    const animatedText = document.querySelector('.animated-text');
-    if (animatedText) {
-        animatedText.textContent = '';
-        console.log('🧹 Texto limpo');
-    }
-    
-    // Restart após delay
-    setTimeout(() => {
-        console.log('� Reiniciando animação...');
-        modernUX.notebookAnimationStopped = false;
-        modernUX.notebookAnimationRunning = false;
-        modernUX.setupNotebookAnimation();
-    }, 1000);
-};
-
-// Função para forçar restart da animação
-window.restartNotebookAnimation = function() {
-    console.log('🔄 Forçando restart da animação...');
-    
-    // Parar animação atual
-    const modernUX = window.modernUXInstance;
-    if (modernUX) {
-        modernUX.notebookAnimationRunning = false;
-        modernUX.notebookAnimationStopped = true;
-    }
-    
-    // Limpar texto
-    const animatedText = document.querySelector('.animated-text');
-    if (animatedText) {
-        animatedText.textContent = '';
-    }
-    
-    // Restart após delay
-    setTimeout(() => {
-        if (modernUX) {
-            modernUX.notebookAnimationStopped = false;
-            modernUX.notebookAnimationRunning = false;
-            modernUX.setupNotebookAnimation();
-        }
-    }, 1000);
-};
 
 // Performance monitoring
 if ('performance' in window) {
@@ -873,17 +453,6 @@ if ('performance' in window) {
             if (navigation.loadEventEnd > 3000) {
                 console.info('Page load time could be improved');
             }
-            
-            // Verificar se a animação do notebook está funcionando
-            setTimeout(() => {
-                const animatedText = document.querySelector('.animated-text');
-                if (animatedText && animatedText.textContent.length > 0) {
-                    console.log('✅ Animação do notebook está funcionando');
-                } else {
-                    console.warn('⚠️ Animação do notebook pode não estar funcionando');
-                    console.log('Execute window.testNotebookAnimation() no console para testar');
-                }
-            }, 5000);
         }, 0);
     });
 }
