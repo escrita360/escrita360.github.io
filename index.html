@@ -97,8 +97,16 @@
                 <h2>Qual a Diferença das Demais Plataformas</h2>
             </div>
             <div class="differential-content">
-                <!-- Primeira linha - 4 cards -->
-                <div class="differences-grid differences-grid-top">
+                <div class="features-category">
+                    <div class="difference-header ">
+                        <div class="carousel-controls">
+                            <button class="carousel-btn carousel-prev" data-target="differentials">❮</button>
+                            <button class="carousel-btn carousel-next" data-target="differentials">❯</button>
+                        </div>
+                    </div>
+                    <div class="features-carousel">
+                        <div class="carousel-container">
+                            <div class="differences-grid differences-grid-top carousel-track" id="differentials-track">
                     <div class="difference-card">
                         <div class="difference-icon">
                             <i class="fas fa-user-edit"></i>
@@ -127,10 +135,6 @@
                         <h3>Análise Integrada em Tempo Real</h3>
                         <p>Conta com feedbacks e análises mediadas por diferentes recursos de análise textual, de forma rápida e consistente, tais como a verificação da estrutura e fluidez da escrita, frequência das palavras e coesão textual.</p>
                     </div>
-                </div>
-
-                <!-- Segunda linha - 3 cards centralizados -->
-                <div class="differences-grid differences-grid-bottom">
                     <div class="difference-card">
                         <div class="difference-icon">
                             <i class="fas fa-clipboard-check"></i>
@@ -152,7 +156,7 @@
                         <h3>IA como Assistente</h3>
                         <p>A tecnologia atua como uma camada complementar após a autoavaliação realizada pelo estudante, oferecendo feedback ao final do processo, para potencializar reescritas, sem comprometer a autonomia do estudante e o papel mediador do professor.</p>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -165,8 +169,16 @@
                     </div>
             <!-- Students Features -->
             <div class="features-category">
-                <h3 class="category-title">Para Estudantes</h3>
-                <div class="features-grid">
+                <div class="category-header">
+                    <h3 class="category-title">Para Estudantes</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" data-target="students">❮</button>
+                        <button class="carousel-btn carousel-next" data-target="students">❯</button>
+                    </div>
+                </div>
+                <div class="features-carousel">
+                    <div class="carousel-container">
+                        <div class="features-grid carousel-track" id="students-track">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-lightbulb"></i>
@@ -229,14 +241,23 @@
                         </div>
                         <h4>Feedback com IA</h4>
                         <p>Feedback com IA no final do processo — não para substituir, mas para complementar a revisão</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Teachers Features -->
             <div class="features-category">
-                <h3 class="category-title">Para Professores</h3>
-                <div class="features-grid">
+                <div class="category-header">
+                    <h3 class="category-title">Para Professores</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" data-target="teachers">❮</button>
+                        <button class="carousel-btn carousel-next" data-target="teachers">❯</button>
+                    </div>
+                </div>
+                <div class="features-carousel">
+                    <div class="carousel-container">
+                        <div class="features-grid carousel-track" id="teachers-track">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-cloud"></i>
@@ -299,14 +320,23 @@
                         </div>
                         <h4>Redução de Carga</h4>
                         <p>Redução da carga de trabalho, com correções apoiadas em critérios qualitativos claros, compartilhados e previamente selecionados</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Schools Features -->
             <div class="features-category">
-                <h3 class="category-title">Para Escolas</h3>
-                <div class="features-grid">
+                <div class="category-header">
+                    <h3 class="category-title">Para Escolas</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" data-target="schools">❮</button>
+                        <button class="carousel-btn carousel-next" data-target="schools">❯</button>
+                    </div>
+                </div>
+                <div class="features-carousel">
+                    <div class="carousel-container">
+                        <div class="features-grid carousel-track" id="schools-track">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-users-cog"></i>
@@ -327,6 +357,8 @@
                         </div>
                         <h4>Dashboards Personalizados</h4>
                         <p>Dashboards personalizados, mostrando: Quantitativo de redações produzidas, Habilidades da BNCC trabalhadas, Níveis de desempenho por aluno, turma ou escola</p>
+                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -566,11 +598,7 @@
                         <span>Suporte pedagógico</span>
                     </div>
                 </div>
-                <div class="cta-actions">
-                    <a href="#pricing" class="btn-primary ">
-                        <i class="fas fa-graduation-cap"></i>
-                        Começar Grátis Agora
-                    </a>
+                   <div class="cta-actions">
                     <a href="https://wa.me/5540228922?text=Olá! Gostaria de agendar uma demonstração do Escrita360" class="btn-outline btn-large" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-calendar"></i>
                         Agendar Demonstração

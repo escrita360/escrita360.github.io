@@ -360,6 +360,8 @@ p {
 .section-header {
     text-align: center;
     margin-bottom: 40px;
+    margin-top: 10px;
+    padding: 0% 10px;
 }
 
 .section-header h2 {
@@ -391,7 +393,13 @@ p {
     margin-bottom: var(--space-12);
     text-align: center;
 }
-
+.difference-header {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 0;
+   
+}
 .feature-card h4 {
     font-size: clamp(1rem, 1.8vw, 1.15rem);
     font-weight: 600;
@@ -543,8 +551,8 @@ p {
 
 /* Button Variants */
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-900));
-    color: blue;
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    color: white !important;
     border-color: var(--primary-600);
     box-shadow: var(--shadow-sm);
 }
@@ -553,7 +561,7 @@ p {
     background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
-}
+}   
 
 .btn-primary:focus {
     box-shadow: var(--shadow-md), 0 0 0 3px rgba(99, 102, 241, 0.1);
@@ -584,20 +592,23 @@ p {
 }
 
 .btn-outline {
-    background: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--logo-blue-dark);
+    color: white !important;
+    border-color: var(--logo-blue-dark);
 }
 
 .btn-outline:hover:not(:disabled) {
-    background: var(--primary-50);
-    border-color: var(--primary-600);
+    background: var(--logo-blue);
+    color: white !important;
+    border-color: var(--logo-blue);
     transform: translateY(-1px);
 }
 
 .btn-outline:focus {
-    background: var(--primary-50);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: var(--logo-blue);
+    color: white !important;
+    border-color: var(--logo-blue);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 
 /* Button Sizes */
@@ -1902,8 +1913,63 @@ section:first-of-type {
 
 /* Features Section */
 .features {
-    padding: 30px 0 50px 0;
+    padding: 40px 0;
     background: var(--card-color);
+}
+
+/* Category Header */
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.carousel-controls {
+    display: flex;
+    gap: 8px;
+}
+
+/* Features Carousel */
+.features-carousel {
+    position: relative;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+    gap: 20px;
+}
+
+.carousel-btn {
+    background: var(--logo-blue);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.carousel-btn:hover {
+    background: var(--logo-blue-dark);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
 }
 
 .section-header {
@@ -1923,62 +1989,79 @@ section:first-of-type {
 }
 
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    display: flex;
+    gap: 30px;
+    min-width: 100%;
+}
+
+.features-grid.carousel-track .feature-card {
+    flex: 0 0 280px;
+    min-width: 280px;
 }
 
 .feature-card {
     text-align: justify;
     padding: 20px 10px;
+    max-width: 280px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.feature-card:hover {
+    border-color: var(--logo-blue);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+
 }
 
 .feature-icon {
-    width: 28px;
-    height: 28px;
+    width: 35px;
+    height: 35px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-right: 12px;
-    margin-bottom: 0;
+    margin-bottom: 15px;
     color: var(--logo-blue-dark);
     font-size: 22px;
     vertical-align: middle;
 }
 
-/* Ícones individuais com cores únicas */
-/* Seção Para Estudantes */
-.features-category:nth-child(2) .feature-card:nth-child(1) .feature-icon { color: var(--logo-blue); }
-.features-category:nth-child(2) .feature-card:nth-child(2) .feature-icon { color: #10B981; /* Verde */ }
-.features-category:nth-child(2) .feature-card:nth-child(3) .feature-icon { color: #F59E0B; /* Laranja */ }
-.features-category:nth-child(2) .feature-card:nth-child(4) .feature-icon { color: #EF4444; /* Vermelho */ }
-.features-category:nth-child(2) .feature-card:nth-child(5) .feature-icon { color: #8B5CF6; /* Roxo */ }
-.features-category:nth-child(2) .feature-card:nth-child(6) .feature-icon { color: var(--logo-cyan); }
-.features-category:nth-child(2) .feature-card:nth-child(7) .feature-icon { color: #EC4899; /* Rosa */ }
-.features-category:nth-child(2) .feature-card:nth-child(8) .feature-icon { color: #06B6D4; /* Ciano escuro */ }
-.features-category:nth-child(2) .feature-card:nth-child(9) .feature-icon { color: #84CC16; /* Lima */ }
-
-/* Seção Para Professores */
-.features-category:nth-child(3) .feature-card:nth-child(1) .feature-icon { color: #3B82F6; /* Azul claro */ }
-.features-category:nth-child(3) .feature-card:nth-child(2) .feature-icon { color: #F97316; /* Laranja escuro */ }
-.features-category:nth-child(3) .feature-card:nth-child(3) .feature-icon { color: #14B8A6; /* Teal */ }
-.features-category:nth-child(3) .feature-card:nth-child(4) .feature-icon { color: #F59E0B; /* Âmbar */ }
-.features-category:nth-child(3) .feature-card:nth-child(5) .feature-icon { color: #A855F7; /* Violeta */ }
-.features-category:nth-child(3) .feature-card:nth-child(6) .feature-icon { color: #EF4444; /* Vermelho */ }
-.features-category:nth-child(3) .feature-card:nth-child(7) .feature-icon { color: var(--logo-blue-dark); }
-.features-category:nth-child(3) .feature-card:nth-child(8) .feature-icon { color: #059669; /* Esmeralda */ }
-.features-category:nth-child(3) .feature-card:nth-child(9) .feature-icon { color: #DC2626; /* Vermelho escuro */ }
-
-/* Seção Para Escolas */
-.features-category:nth-child(4) .feature-card:nth-child(1) .feature-icon { color: #7C3AED; /* Índigo */ }
-.features-category:nth-child(4) .feature-card:nth-child(2) .feature-icon { color: #10B981; /* Verde esmeralda */ }
-.features-category:nth-child(4) .feature-card:nth-child(3) .feature-icon { color: var(--logo-cyan-dark); }
-
-/* Tamanhos uniformes para todos */
-.features-category .feature-icon {
+/* Ícones específicos por seção */
+/* Seção Para Estudantes - Azul */
+.features-category:nth-child(2) .feature-icon {
+    color: var(--logo-blue);
     font-size: 24px;
     width: 30px;
     height: 30px;
+}
+
+/* Seção Para Professores - Verde */
+.features-category:nth-child(3) .feature-icon {
+    color: #10B981; /* Verde */
+    font-size: 24px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Seção Para Escolas - Laranja */
+.features-category:nth-child(4) .feature-icon {
+    color: #F59E0B; /* Laranja */
+    font-size: 24px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Layout compacto das categorias */
+.features-category {
+    margin-bottom: 40px;
+}
+
+.features-category:last-child {
+    margin-bottom: 0;
 }
 
 .feature-icon i {
@@ -2017,7 +2100,7 @@ section:first-of-type {
 /* Pricing Section */
 .pricing {
     padding: 30px 0;
-    background: var(--logo-blue-dark);
+    background: var(--surface-color);
 }
 
 .pricing-toggle {
@@ -2347,7 +2430,7 @@ input:checked + .slider:before {
 
 /* Differential Section */
 .differential {
-    padding: 40px 0;
+    padding: 10px 0;
     background: var(--card-color);
     margin-bottom: var(--space-5);
 }
@@ -2410,7 +2493,7 @@ input:checked + .slider:before {
 .target-audience {
     padding: 40px 0;
     /*background: var(--card-color);*/
-    background: var(--surface-color);
+    background: var(--gray-200);
 }
 
 .audience-grid {
@@ -2423,6 +2506,17 @@ input:checked + .slider:before {
 .audience-card {
     text-align: justify;
     padding: 20px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.audience-card:hover {
+    border-color: var(--logo-cyan);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .audience-icon {
@@ -2493,12 +2587,40 @@ input:checked + .slider:before {
     margin-right: auto;
 }
 
+/* Carrossel para seção differential */
+.differences-grid.carousel-track {
+    display: flex;
+    gap: 20px;
+    min-width: 100%;
+    grid-template-columns: none;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.differences-grid.carousel-track .difference-card {
+    flex: 0 0 280px;
+    min-width: 280px;
+    max-width: 280px;
+}
+
 .difference-card {
     text-align: justify;
     padding: 24px 16px;
     font-size: var(--font-size-sm);
     max-width: 100%;
     margin: 0 auto;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.difference-card:hover {
+    border-color: var(--logo-blue-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .difference-icon {
@@ -2700,7 +2822,7 @@ input:checked + .slider:before {
 /* CTA Section */
 .cta {
     padding: 50px 0;
-    background: linear-gradient(135deg, var(--logo-blue), var(--logo-cyan));
+    background: linear-gradient(135deg, var(--logo-blue), var(--gray-900));
     color: white;
     text-align: center;
 }
@@ -2745,7 +2867,7 @@ input:checked + .slider:before {
 }
 
 .cta-actions .btn-primary {
-    background: blue;
+    background: white;
     color: var(--primary-color);
 }
 
@@ -2756,12 +2878,12 @@ input:checked + .slider:before {
 
 .cta-actions .btn-outline {
     border-color: white;
-    color: white;
+    color: white !important;
 }
 
 .cta-actions .btn-outline:hover {
     background: white;
-    color: var(--primary-color);
+    color: var(--logo-cyan);
 }
 
 /* Footer */
@@ -3041,6 +3163,28 @@ input:checked + .slider:before {
         font-size: 20px;
     }
     
+    /* Carrossel responsivo no mobile */
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .carousel-controls {
+        align-self: flex-end;
+    }
+    
+    .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .features-grid.carousel-track .feature-card {
+        flex: 0 0 250px;
+        min-width: 250px;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -3259,6 +3403,13 @@ input:checked + .slider:before {
         grid-template-columns: repeat(2, 1fr);
         max-width: 100%;
         gap: 24px;
+    }
+    
+    /* Carrossel no tablet */
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
     }
     
     .dropdown-resources-grid {

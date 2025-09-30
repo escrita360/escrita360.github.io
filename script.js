@@ -456,3 +456,125 @@ if ('performance' in window) {
         }, 0);
     });
 }
+
+// Features Carousel Functionality
+class FeaturesCarousel {
+    constructor() {
+        this.carousels = {
+            students: { currentIndex: 0, track: null, cards: [] },
+            teachers: { currentIndex: 0, track: null, cards: [] },
+            schools: { currentIndex: 0, track: null, cards: [] },
+            differentials: { currentIndex: 0, track: null, cards: [] }
+        };
+        this.init();
+    }
+
+    init() {
+        // Initialize each carousel
+        Object.keys(this.carousels).forEach(key => {
+            const track = document.getElementById(`${key}-track`);
+            if (track) {
+                this.carousels[key].track = track;
+                // Use appropriate card selector based on carousel type
+                const cardSelector = (key === 'differentials') ? '.difference-card' : '.feature-card';
+                this.carousels[key].cards = track.querySelectorAll(cardSelector);
+                this.updateCarousel(key);
+            }
+        });
+
+        // Add event listeners for buttons
+        document.querySelectorAll('.carousel-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const target = e.target.dataset.target;
+                const direction = e.target.classList.contains('carousel-next') ? 'next' : 'prev';
+                this.navigate(target, direction);
+            });
+        });
+
+        // Add touch/swipe support
+        this.addTouchSupport();
+    }
+
+    navigate(carouselKey, direction) {
+        const carousel = this.carousels[carouselKey];
+        if (!carousel || !carousel.cards.length) return;
+
+        const maxIndex = Math.max(0, carousel.cards.length - this.getVisibleCards());
+        
+        if (direction === 'next') {
+            carousel.currentIndex = Math.min(carousel.currentIndex + 1, maxIndex);
+        } else {
+            carousel.currentIndex = Math.max(carousel.currentIndex - 1, 0);
+        }
+
+        this.updateCarousel(carouselKey);
+    }
+
+    getVisibleCards() {
+        // Responsive visible cards count
+        if (window.innerWidth < 768) return 1;
+        if (window.innerWidth < 1024) return 2;
+        return 3;
+    }
+
+    updateCarousel(carouselKey) {
+        const carousel = this.carousels[carouselKey];
+        if (!carousel || !carousel.track) return;
+
+        const cardWidth = 300; // 280px + 20px gap
+        const translateX = -carousel.currentIndex * cardWidth;
+        
+        carousel.track.style.transform = `translateX(${translateX}px)`;
+    }
+
+    addTouchSupport() {
+        Object.keys(this.carousels).forEach(key => {
+            const track = this.carousels[key].track;
+            if (!track) return;
+
+            let startX = 0;
+            let isDragging = false;
+
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            track.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+
+            track.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        this.navigate(key, 'next');
+                    } else {
+                        this.navigate(key, 'prev');
+                    }
+                }
+            });
+        });
+    }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new FeaturesCarousel();
+});
+
+// Update carousel on window resize
+window.addEventListener('resize', () => {
+    const carousel = window.featuresCarousel;
+    if (carousel) {
+        Object.keys(carousel.carousels).forEach(key => {
+            carousel.updateCarousel(key);
+        });
+    }
+});
