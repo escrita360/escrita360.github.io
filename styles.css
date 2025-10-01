@@ -681,10 +681,10 @@ p {
 .nav .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     min-height: 6rem;
-    gap: var(--space-8);
+    gap: var(--space-4);
 }
 
 .nav-brand {
@@ -721,12 +721,12 @@ p {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: var(--space-8);
-    margin: 2rem 0;
-    margin-left: var(--space-12);
+    gap: var(--space-6);
+    margin: 0;
+    margin-left: var(--space-4);
     padding: 0;
-    flex: 1;
-    justify-content: justify;
+    flex: 0;
+    justify-content: flex-start;
 }
 
 .nav-actions {
@@ -734,7 +734,7 @@ p {
     gap: var(--space-3);
     align-items: center;
     flex-shrink: 0;
-    margin-left: var(--space-8);
+    margin-left: auto;
 }
 
 .nav-toggle {
