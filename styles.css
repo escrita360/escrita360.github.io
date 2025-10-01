@@ -2905,7 +2905,7 @@ input:checked + .slider:before {
     display: flex;
     gap: var(--spacing);
 }
-
+/*a*/
 .footer-social a {
     color: var(--text-muted);
     font-size: 18px;
