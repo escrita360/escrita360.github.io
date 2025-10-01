@@ -2645,6 +2645,22 @@ input:checked + .slider:before {
     box-shadow: 0 4px 8px rgba(93, 173, 226, 0.3);
 }
 
+/* Estilos específicos para emojis nos ícones */
+.difference-icon:not(:has(i)),
+.feature-icon:not(:has(i)) {
+    font-size: 28px;
+    line-height: 1;
+    text-align: center;
+}
+
+/* Garantir que emojis também tenham o fundo colorido */
+.difference-icon,
+.feature-icon {
+    background: #5DADE2 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 8px rgba(93, 173, 226, 0.3) !important;
+}
+
 /* Todos os ícones difference usam o mesmo estilo azul claro */
 .difference-card:nth-child(even) .difference-icon {
     background: #5DADE2;
