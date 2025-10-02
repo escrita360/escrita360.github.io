@@ -2036,6 +2036,14 @@ section:first-of-type {
     box-shadow: 0 4px 8px rgba(93, 173, 226, 0.3);
 }
 
+/* Estilos para imagens dentro dos ícones */
+.feature-icon img {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna a imagem branca */
+}
+
 /* Ícones específicos por seção */
 /* Seção Para Estudantes - Azul Claro */
 .features-category:nth-child(1) .feature-icon {
@@ -2659,6 +2667,17 @@ input:checked + .slider:before {
     background: #5DADE2 !important;
     border-radius: 50% !important;
     box-shadow: 0 4px 8px rgba(93, 173, 226, 0.3) !important;
+}
+
+/* Estilos específicos para imagens dentro dos ícones */
+.difference-icon img,
+.feature-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: none;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Todos os ícones difference usam o mesmo estilo azul claro */
