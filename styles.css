@@ -2028,12 +2028,12 @@ section:first-of-type {
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px auto;
-    background: #5DADE2;
+    background: #85C1E9;
     border-radius: 50%;
     color: white;
     font-size: 24px;
     vertical-align: middle;
-    box-shadow: 0 4px 8px rgba(93, 173, 226, 0.3);
+    box-shadow: 0 4px 8px rgba(133, 193, 233, 0.3);
 }
 
 /* Estilos para imagens dentro dos ícones */
@@ -2047,7 +2047,7 @@ section:first-of-type {
 /* Ícones específicos por seção */
 /* Seção Para Estudantes - Azul Claro */
 .features-category:nth-child(1) .feature-icon {
-    background: #5DADE2;
+    background: #85C1E9;
     color: white;
     font-size: 24px;
     width: 60px;
@@ -2056,7 +2056,7 @@ section:first-of-type {
 
 /* Seção Para Professores - Azul Claro */
 .features-category:nth-child(2) .feature-icon {
-    background: #5DADE2;
+    background: #85C1E9;
     color: white;
     font-size: 24px;
     width: 60px;
@@ -2065,7 +2065,7 @@ section:first-of-type {
 
 /* Seção Para Escolas - Azul Claro */
 .features-category:nth-child(3) .feature-icon {
-    background: #5DADE2;
+    background: #85C1E9;
     color: white;
     font-size: 24px;
     width: 60px;
