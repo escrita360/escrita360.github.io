@@ -421,12 +421,159 @@ const setupFAQ = () => {
     });
 };
 
+// Carrossel da demonstração
+class DemoCarousel {
+    constructor() {
+        this.currentSlide = 0;
+        this.slides = [
+            'Dashboard do Estudante',
+            'Módulo de Escrita',
+            'Painel de Sentimentos',
+            'Dashboard do Professor',
+            'Relatórios e Analytics'
+        ];
+        this.totalSlides = this.slides.length;
+        this.autoPlayInterval = null;
+        this.init();
+    }
+
+    init() {
+        this.setupControls();
+        this.setupIndicators();
+        this.startAutoPlay();
+    }
+
+    setupControls() {
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.previousSlide();
+                this.startAutoPlay();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.nextSlide();
+                this.startAutoPlay();
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.querySelector('.demo-carousel')) {
+                if (e.key === 'ArrowLeft') {
+                    this.stopAutoPlay();
+                    this.previousSlide();
+                    this.startAutoPlay();
+                } else if (e.key === 'ArrowRight') {
+                    this.stopAutoPlay();
+                    this.nextSlide();
+                    this.startAutoPlay();
+                }
+            }
+        });
+    }
+
+    setupIndicators() {
+        const indicators = document.querySelectorAll('.indicator');
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.goToSlide(index);
+                this.startAutoPlay();
+            });
+        });
+    }
+
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+    }
+
+    previousSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+    }
+
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateCarousel();
+    }
+
+    updateCarousel() {
+        // Update indicators
+        document.querySelectorAll('.indicator').forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === this.currentSlide);
+        });
+
+        // Update content
+        document.querySelectorAll('.demo-content').forEach((content, index) => {
+            content.classList.toggle('active', index === this.currentSlide);
+        });
+
+        // Update images
+        document.querySelectorAll('.carousel-img').forEach((img, index) => {
+            img.classList.toggle('active', index === this.currentSlide);
+        });
+
+        // Announce change to screen readers
+        this.announceSlideChange();
+    }
+
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, 5000); // Change slide every 5 seconds
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+
+    announceSlideChange() {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Slide ${this.currentSlide + 1} de ${this.totalSlides}: ${this.slides[this.currentSlide]}`;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
+
+    // Pause autoplay when user hovers over carousel
+    pauseOnHover() {
+        const carousel = document.querySelector('.demo-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
+            carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
+    }
+}
+
 // Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('🌟 Inicializando sistema Escrita360...');
         
         const modernUX = new ModernUX();
+        
+        // Initialize carousel if demo section exists
+        if (document.querySelector('.demo-carousel')) {
+            const carousel = new DemoCarousel();
+            carousel.pauseOnHover();
+            window.carouselInstance = carousel; // For debugging
+        }
         
         // Tornar disponível globalmente para debug
         window.modernUXInstance = modernUX;
