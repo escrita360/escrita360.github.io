@@ -258,6 +258,323 @@ u,
     }
 }
 
+/* Container System - Background Variants */
+/* Container com fundo azul */
+.container-blue {
+    width: 100%;
+    background: var(--logo-blue);
+    padding: var(--space-1) 0;
+    margin: 0;
+}
+
+.container-blue .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+
+
+.container-blue .category-title {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Container com fundo branco (padrão) */
+.container-white {
+    width: 100%;
+    background: #FFFFFF;
+    padding: var(--space-16) 0;
+    margin: 0;
+}
+
+/* Container branco compacto para headers/títulos */
+.container-white-compact {
+    width: 100%;
+    background: #FFFFFF;
+    padding: var(--space-1) 0;
+    margin: 0;
+}
+
+/* Container branco médio para seções com conteúdo moderado */
+.container-white-medium {
+    width: 100%;
+    background: #FFFFFF;
+    padding: var(--space-1) 0;
+    margin: 0;
+}
+
+/* Container branco largo para seções com muito conteúdo */
+.container-white-large {
+    width: 100%;
+    background: #FFFFFF;
+    padding: var(--space-20) 0;
+    margin: 0;
+}
+
+.container-white .container,
+.container-white-compact .container,
+.container-white-medium .container,
+.container-white-large .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+
+.container-white h2,
+.container-white h3,
+.container-white .category-title,
+.container-white-compact h2,
+.container-white-compact h3,
+.container-white-compact .category-title,
+.container-white-medium h2,
+.container-white-medium h3,
+.container-white-medium .category-title,
+.container-white-large h2,
+.container-white-large h3,
+.container-white-large .category-title {
+    color: var(--text-primary);
+}
+
+.container-white p,
+.container-white-compact p,
+.container-white-medium p,
+.container-white-large p {
+    color: var(--text-secondary);
+}
+
+/* Container específico para escolas - compacto e centralizado */
+.container-schools {
+    width: 100%;
+    background: #39A1DB;
+    padding: var(--space-1) 0 !important;
+    margin: 0;
+}
+
+/* Remove margin-bottom from features-category inside container-schools */
+.container-schools .features-category {
+    margin-bottom: 0 !important;
+}
+
+.container-schools .container {
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+
+.container-schools .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    align-items: center;
+}
+.container-schools .category-title {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Container específico para seção demo - fundo branco */
+.container-demo {
+    width: 100%;
+    background: #FFFFFF;
+    padding: var(--space-16) 0;
+    margin: 0;
+}
+
+.container-demo .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+
+.container-demo .section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.container-demo .category-title {
+    color: var(--text-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Grid de demonstração para imagens */
+.demo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+}
+
+/* Card para cada imagem da demo */
+.demo-item {
+    background: var(--card-color);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    border: 1px solid var(--border-color);
+}
+
+.demo-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-200);
+}
+
+/* Container para imagem da demo */
+.demo-image {
+    width: 100%;
+    height: 200px;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.demo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+}
+
+.demo-item:hover .demo-image img {
+    transform: scale(1.05);
+}
+
+/* Placeholder para quando não há imagem */
+.demo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-muted);
+    background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+}
+
+.demo-placeholder i {
+    font-size: 2rem;
+    margin-bottom: var(--space-2);
+    color: var(--primary-color);
+}
+
+.demo-placeholder span {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Conteúdo da demo */
+.demo-content {
+    padding: var(--space-6);
+}
+
+.demo-content h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--line-height-tight);
+}
+
+.demo-content p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+}
+
+/* Texto introdutório da seção demo */
+.demo-description {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-12);
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    line-height: var(--line-height-relaxed);
+}
+
+
+/* Responsive adjustments para os containers */
+@media (max-width: 768px) {
+    .container-schools .features-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    /* Estilos responsivos para seção demo */
+    .container-demo {
+        padding: var(--space-12) 0;
+    }
+    
+    .demo-gallery {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+    
+    .demo-item {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+    
+    .demo-image {
+        height: 180px;
+    }
+    
+    .demo-content {
+        padding: var(--space-4);
+    }
+    
+    .demo-content h4 {
+        font-size: var(--font-size-base);
+    }
+    
+    .demo-description {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-8);
+    }
+}
+
+@media (min-width: 640px) {
+    .container-blue .container,
+    .container-white .container,
+    .container-white-compact .container,
+    .container-white-medium .container,
+    .container-white-large .container,
+    .container-schools .container,
+    .container-demo .container {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+    }
+}
+@media (min-height: 768px) {
+
+}
+@media (min-width: 1024px) {
+    .container-blue .container,
+    .container-white .container,
+    .container-white-compact .container,
+    .container-white-medium .container,
+    .container-white-large .container,
+    .container-schools .container,
+    .container-demo .container {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
+}
+
 /* Typography System */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-primary);
@@ -354,13 +671,12 @@ p {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     margin-bottom: 24px;
-    margin-top: 20px;
+    margin-top: 5px;
     box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 40px;
     margin-top: 10px;
     padding: 0% 10px;
 }
@@ -639,11 +955,10 @@ p {
 
 /* Header - Modern Navigation - Always Visible */
 .header {
-    background: rgba(100, 232, 255, 0.705) !important;
+    background: #ffffff !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-bottom: 1px solid var(--border-color) !important;
-    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
@@ -728,6 +1043,19 @@ p {
     padding: 0;
     flex: 0;
     justify-content: flex-start;
+}
+
+.nav-menu a {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-bold);
+    transition: color var(--transition-fast);
+    padding: 0 var(--space-2);
+    text-decoration: none;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
 }
 
 .nav-actions {
@@ -1559,7 +1887,6 @@ p {
         opacity: 0;
         visibility: hidden;
         transition: all var(--transition-base);
-        border-bottom: 1px solid var(--border-color);
         box-shadow: var(--shadow-lg);
         z-index: var(--z-dropdown);
         margin: 0;
@@ -1574,13 +1901,15 @@ p {
     
 .nav-menu a {
     color: var(--text-secondary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
     transition: color var(--transition-fast);
     padding: 0 var(--space-2);
 }
 
 .nav-menu a:hover {
     color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
+
 }
     
     /* Mobile Dropdown Styles */
@@ -1622,6 +1951,27 @@ section {
 
 section:first-of-type {
     padding-top: var(--space-24);
+}
+
+/* Padrão Alternado de Cores de Fundo */
+.target-audience {
+    background: #FFFFFF;
+}
+
+.differential {
+    background: #4A90E2;
+}
+
+.features {
+    background: #FFFFFF;
+}
+
+.pricing {
+    background:  #fcfcfd;
+}
+
+.how-it-works {
+    background: #FFFFFF;
 }
 
 /* Platform Summary Section - Extra bottom spacing */
@@ -1961,7 +2311,6 @@ section:first-of-type {
 /* Features Section */
 .features {
     padding: 40px 0;
-    background: var(--card-color);
 }
 
 /* Category Header */
@@ -2105,7 +2454,25 @@ section:first-of-type {
 
 /* Layout compacto das categorias */
 .features-category {
+    margin-bottom: 20px;
+}
+
+/* Seção Para Estudantes com fundo branco/transparente */
+.features-category:nth-child(1) {
+    background: transparent;
+    padding: 20px;
+}
+
+/* Seção Para Professores com fundo azul */
+.features-category:nth-child(2) {
+    background: #4A90E2;
+    padding: 40px 20px;
+    border-radius: 15px;
     margin-bottom: 60px;
+}
+
+.features-category:nth-child(2) .category-title {
+    color: white;
 }
 
 .features-category:last-child {
@@ -2157,7 +2524,6 @@ section:first-of-type {
 /* Pricing Section */
 .pricing {
     padding: 30px 0;
-    background: var(--surface-color);
 }
 
 .pricing-toggle {
@@ -2198,7 +2564,6 @@ input:checked + .slider:before {
 .discount-badge {
     background: var(--success-color);
     color: white;
-    padding: 2px 2px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
@@ -2238,7 +2603,6 @@ input:checked + .slider:before {
     transform: translateX(-50%);
     background: linear-gradient(135deg, var(--logo-cyan), var(--logo-cyan-dark));
     color: white;
-    padding: 4px 12px;
     border-radius: 16px;
     font-size: 10px;
     font-weight: 600;
@@ -2465,7 +2829,7 @@ input:checked + .slider:before {
 /* Differential Section */
 .differential {
     padding: 10px 0;
-    background: var(--card-color);
+    background: #4A90E2;
     margin-bottom: var(--space-5);
 }
 
@@ -2526,8 +2890,7 @@ input:checked + .slider:before {
 /* Target Audience Section */
 .target-audience {
     padding: 40px 0;
-    /*background: var(--card-color);*/
-    background: var(--gray-200);
+    background: #FFFFFF;
 }
 
 .audience-grid {
@@ -2933,7 +3296,7 @@ input:checked + .slider:before {
 }
 
 .footer-brand .nav-brand {
-    color: white;
+    color: #ffffff;
     margin-bottom: var(--spacing);
 }
 
