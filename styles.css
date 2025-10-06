@@ -383,14 +383,15 @@ u,
 /* Container específico para escolas - compacto e centralizado */
 .container-schools {
     width: 100%;
-    background: #39A1DB;
-    padding: var(--space-1) 0 !important;
-    margin: 0;
+    background: #4070B7;
+    padding: var(--space-4) 0 var(--space-3) 0 !important;
+    margin: 0 !important;
 }
 
 /* Remove margin-bottom from features-category inside container-schools */
 .container-schools .features-category {
     margin-bottom: 0 !important;
+    padding: 0 0 0 0 !important;
 }
 
 .container-schools .container {
@@ -400,6 +401,7 @@ u,
     margin-right: auto;
     padding-left: var(--space-4);
     padding-right: var(--space-4);
+    margin-bottom: var(--space-2) !important;
 }
 
 .container-schools .features-grid {
@@ -410,6 +412,7 @@ u,
 }
 .container-schools .category-title {
     color: rgba(255, 255, 255, 0.95);
+    margin-top: var(--space-4) !important;
 }
 
 /* Container específico para seção demo - fundo branco */
