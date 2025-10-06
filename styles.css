@@ -3203,10 +3203,48 @@ input:checked + .slider:before {
     transition: all var(--transition-base);
 }
 
+/* Alternating background colors */
+.difference-item.bg-blue {
+    background: linear-gradient(135deg, var(--logo-blue-light), var(--logo-blue));
+    color: white;
+    border-color: var(--logo-blue);
+}
+
+.difference-item.bg-blue .difference-text h3 {
+    color: white;
+}
+
+.difference-item.bg-blue .difference-text p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.difference-item.bg-white {
+    background: var(--card-color);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.difference-item.bg-white .difference-text h3 {
+    color: var(--text-primary);
+}
+
+.difference-item.bg-white .difference-text p {
+    color: var(--text-secondary);
+}
+
 .difference-item:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-4px);
+}
+
+.difference-item.bg-blue:hover {
+    border-color: var(--logo-cyan);
+    box-shadow: 0 20px 25px -5px rgba(74, 144, 226, 0.3), 0 8px 10px -6px rgba(74, 144, 226, 0.2);
+}
+
+.difference-item.bg-white:hover {
     border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Alternância: imagem à esquerda */
