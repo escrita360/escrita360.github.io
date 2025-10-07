@@ -959,6 +959,22 @@ p {
     margin-bottom: 0;
    
 }
+.difference-text p{
+    font-size: var(--font-family-primary);
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: bold;
+    line-height: var(--line-height-relaxed);
+    max-width: 600px;
+    text-align: justify;
+}
+.difference-text h3{
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-4) 0;
+    text-align: left;  
+}
 .feature-card h4 {
     font-size: clamp(1rem, 1.8vw, 1.15rem);
     font-weight: 600;
@@ -3749,7 +3765,7 @@ input:checked + .slider:before {
 .difference-item {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
+    gap: var(--space-2);
     align-items: center;
     padding: var(--space-8);
     border-radius: var(--radius-xl);
@@ -3799,8 +3815,9 @@ input:checked + .slider:before {
 }
 
 .difference-item.bg-white:hover {
-    border-color: var(--primary-color);
+    border-color: var(--logo-blue-dark) !important;
     box-shadow: var(--shadow-lg);
+
 }
 
 /* Alternância: imagem à esquerda */
@@ -3879,6 +3896,7 @@ input:checked + .slider:before {
 
 .difference-text {
     padding: var(--space-4);
+
 }
 
 .difference-text h3 {
@@ -3899,7 +3917,7 @@ input:checked + .slider:before {
 /* Responsividade para layout alternado */
 @media (max-width: 768px) {
     .differences-alternating {
-        gap: var(--space-8);
+        gap: var(--space-7);
     }
     
     .difference-item {
@@ -3907,8 +3925,8 @@ input:checked + .slider:before {
         grid-template-areas: 
             "image"
             "text" !important;
-        gap: var(--space-6);
-        padding: var(--space-6);
+        gap: var(--space-5);
+        padding: var(--space-5);
     }
     
     .difference-image {
@@ -3938,7 +3956,7 @@ input:checked + .slider:before {
     font-size: var(--font-size-sm);
     max-width: 100%;
     margin: 0 auto;
-    border: 2px solid var(--logo-blue-dark);
+    border: 2px solid #000000  !important;
     border-radius: var(--radius-lg);
     background: var(--card-color);
     box-shadow: var(--shadow-sm);
