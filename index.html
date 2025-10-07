@@ -29,8 +29,9 @@
                 </a>
                 
                 <ul class="nav-menu" role="menubar">
+                    <li role="none"><a href="index.html" role="menuitem">Início</a></li>
                     <li role="none"><a href="recursos.html" role="menuitem">Recursos</a></li>
-                    <li role="none"><a href="#pricing" role="menuitem">Planos</a></li>
+                    <li role="none"><a href="planos.html" role="menuitem">Planos</a></li>
                     <li role="none"><a href="#how-it-works" role="menuitem">Metodologia</a></li>
                     <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
                 </ul>
@@ -300,93 +301,51 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
+    <!-- Pricing Preview Section -->
+    <section class="container-white">
         <div class="container">
             <div class="section-header">
-                <h2>Planos</h2>
+                <h2>Planos para Todos</h2>
+                <p>Soluções flexíveis para estudantes, professores e escolas</p>
             </div>
             
-            <div class="pricing-toggle">
-                <span class="toggle-label">Mensal</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="pricing-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">Anual <span class="discount-badge">30% OFF</span></span>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
+            <div class="pricing-preview">
+                <div class="pricing-highlights">
+                    <div class="pricing-highlight-item">
+                        <div class="pricing-highlight-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
                         <h3>Gratuito</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount">0</span>
-                            <span class="period">/sempre</span>
-                        </div>
-                        <p class="plan-description">Perfeito para experimentar nossa metodologia</p>
+                        <div class="highlight-price">R$ 0<span>/sempre</span></div>
+                        <p>Perfeito para experimentar nossa metodologia com 3 correções por mês.</p>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 3 correções por mês</li>
-                        <li><i class="fas fa-check"></i> Processo completo de escrita</li>
-                        <li><i class="fas fa-check"></i> Análise das 5 competências</li>
-                        <li><i class="fas fa-check"></i> Banco de temas limitado</li>
-                        <li><i class="fas fa-times"></i> Relatórios avançados</li>
-                        <li><i class="fas fa-times"></i> Acompanhamento de professor</li>
-                    </ul>
-                    <a href="#" class="btn-outline">Começar Grátis</a>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Mais Escolhido</div>
-                    <div class="pricing-header">
+                    <div class="pricing-highlight-item featured">
+                        <div class="pricing-highlight-badge">Mais Escolhido</div>
+                        <div class="pricing-highlight-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
                         <h3>Professor</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount monthly">47</span>
-                            <span class="amount yearly" style="display: none;">32,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                        <p class="plan-description">Ideal para professores independentes</p>
+                        <div class="highlight-price">R$ 47<span>/mês</span></div>
+                        <p>Ideal para professores independentes com até 30 alunos e recursos completos.</p>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Até 30 alunos</li>
-                        <li><i class="fas fa-check"></i> Correções ilimitadas</li>
-                        <li><i class="fas fa-check"></i> Dashboard completo</li>
-                        <li><i class="fas fa-check"></i> Relatórios detalhados</li>
-                        <li><i class="fas fa-check"></i> Banco completo de temas</li>
-                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
-                        <li><i class="fas fa-check"></i> Treinamento incluído</li>
-                    </ul>
-                    <a href="#" class="btn-primary">Escolher Professor</a>
+                    <div class="pricing-highlight-item">
+                        <div class="pricing-highlight-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <h3>Escola</h3>
+                        <div class="highlight-price">R$ 197<span>/mês</span></div>
+                        <p>Solução completa para instituições com usuários ilimitados e dashboards administrativos.</p>
+                    </div>
                 </div>
                 
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Escola</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount monthly">197</span>
-                            <span class="amount yearly" style="display: none;">137,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                        <p class="plan-description">Solução completa para instituições</p>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Usuários ilimitados</li>
-                        <li><i class="fas fa-check"></i> Múltiplos professores</li>
-                        <li><i class="fas fa-check"></i> Dashboards administrativos</li>
-                        <li><i class="fas fa-check"></i> Relatórios institucionais</li>
-                        <li><i class="fas fa-check"></i> White-label disponível</li>
-                        <li><i class="fas fa-check"></i> Integração com LMS</li>
-                        <li><i class="fas fa-check"></i> Suporte dedicado 24/7</li>
-                        <li><i class="fas fa-check"></i> Consultoria pedagógica</li>
-                    </ul>
-                    <a href="#" class="btn-outline">Agendar Demonstração</a>
+                <div class="pricing-cta">
+                    <a href="planos.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-right"></i>
+                        Ver Todos os Planos
+                    </a>
+                    <p class="cta-subtitle">Compare planos, veja recursos detalhados e escolha o ideal para você</p>
                 </div>
             </div>
-
         </div>
     </section>
 
