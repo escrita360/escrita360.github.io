@@ -969,7 +969,7 @@ p {
     margin: 0;
     font-weight: bold;
     line-height: var(--line-height-relaxed);
-    max-width: 600px;
+    max-width: 800px;
     text-align: justify;
 }
 .difference-text h3{
@@ -3183,7 +3183,7 @@ input:checked + .slider:before {
     font-size: var(--font-size-lg);
     line-height: 1.7;
     color: var(--text-secondary);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-3);
 }
 
 .focus-points {
@@ -3826,8 +3826,8 @@ input:checked + .slider:before {
 
 .difference-item {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2);
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-4);
     align-items: center;
     padding: var(--space-8);
     border-radius: var(--radius-xl);
@@ -3850,6 +3850,7 @@ input:checked + .slider:before {
 
 .difference-item.bg-blue .difference-text p {
     color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
 }
 
 .difference-item.bg-white {
@@ -3864,6 +3865,7 @@ input:checked + .slider:before {
 
 .difference-item.bg-white .difference-text p {
     color: var(--text-secondary);
+    max-width: 800px;
 }
 
 .difference-item:hover {
@@ -3895,6 +3897,15 @@ input:checked + .slider:before {
     grid-area: text;
 }
 
+/* Ajustes específicos para left-image com background white */
+.difference-item.left-image.bg-white {
+    grid-template-columns: 0.8fr 1.7fr;
+}
+
+.difference-item.left-image.bg-white .difference-image {
+    height: 200px;
+}
+
 /* Alternância: imagem à direita */
 .difference-item.right-image {
     grid-template-areas: "text image";
@@ -3912,7 +3923,7 @@ input:checked + .slider:before {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 220px;
     border-radius: var(--radius-lg);
     background: transparent;
     border: none;
@@ -3992,7 +4003,7 @@ input:checked + .slider:before {
     }
     
     .difference-image {
-        height: 200px;
+        height: 180px;
     }
     
     .difference-text h3 {
