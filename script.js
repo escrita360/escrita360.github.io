@@ -568,11 +568,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const modernUX = new ModernUX();
         
-        // Initialize carousel if demo section exists
+        // Initialize demo carousel if demo section exists
         if (document.querySelector('.demo-carousel')) {
             const carousel = new DemoCarousel();
             carousel.pauseOnHover();
             window.carouselInstance = carousel; // For debugging
+        }
+        
+        // Initialize benefits carousel
+        if (document.querySelector('.benefits-carousel')) {
+            const benefitsCarousel = new BenefitsCarousel();
+            window.benefitsCarouselInstance = benefitsCarousel; // For debugging
+            console.log('🎠 Carrossel de benefícios inicializado!');
         }
         
         // Tornar disponível globalmente para debug
@@ -586,6 +593,215 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('❌ Erro ao inicializar:', error);
     }
 });
+
+// Carrossel de Benefícios - Dynamic Album Style
+class BenefitsCarousel {
+    constructor() {
+        this.currentSlide = 0;
+        this.totalSlides = 6;
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 7000; // 7 segundos
+        this.isTransitioning = false;
+        this.init();
+    }
+
+    init() {
+        this.setupControls();
+        this.setupIndicators();
+        this.setupKeyboardNavigation();
+        this.setupTouchNavigation();
+        this.startAutoPlay();
+        this.setupHoverPause();
+        this.updateCarousel();
+    }
+
+    setupControls() {
+        // Controles de navegação removidos - agora apenas hover nos indicadores
+    }
+
+    setupIndicators() {
+        const indicators = document.querySelectorAll('.benefits-carousel .indicator');
+        indicators.forEach((indicator, index) => {
+            // Click navigation
+            indicator.addEventListener('click', () => {
+                this.goToSlide(index);
+            });
+            
+            // Hover navigation for album-like experience
+            indicator.addEventListener('mouseenter', () => {
+                // Small delay to avoid rapid changes
+                this.hoverTimeout = setTimeout(() => {
+                    this.goToSlide(index);
+                }, 300);
+            });
+            
+            indicator.addEventListener('mouseleave', () => {
+                if (this.hoverTimeout) {
+                    clearTimeout(this.hoverTimeout);
+                    this.hoverTimeout = null;
+                }
+            });
+        });
+    }
+
+    setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (!document.querySelector('.benefits-carousel:hover')) return;
+            
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                this.nextSlide();
+            } else if (e.key >= '1' && e.key <= '6') {
+                e.preventDefault();
+                this.goToSlide(parseInt(e.key) - 1);
+            }
+        });
+    }
+
+    setupTouchNavigation() {
+        const carousel = document.querySelector('.carousel-container');
+        if (!carousel) return;
+
+        let startX = 0;
+        let endX = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', () => {
+            const threshold = 50;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    this.nextSlide();
+                } else {
+                    this.previousSlide();
+                }
+            }
+        });
+    }
+
+    setupHoverPause() {
+        const carousel = document.querySelector('.benefits-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                this.stopAutoPlay();
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                this.startAutoPlay();
+            });
+        }
+    }
+
+    nextSlide() {
+        if (this.isTransitioning) return;
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+        this.restartAutoPlay();
+    }
+
+    previousSlide() {
+        if (this.isTransitioning) return;
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+        this.restartAutoPlay();
+    }
+
+    goToSlide(index) {
+        if (this.isTransitioning || index === this.currentSlide) return;
+        this.currentSlide = index;
+        this.updateCarousel();
+        this.restartAutoPlay();
+    }
+
+    updateCarousel() {
+        this.isTransitioning = true;
+
+        // Update slides
+        document.querySelectorAll('.carousel-slide').forEach((slide, index) => {
+            slide.classList.toggle('active', index === this.currentSlide);
+        });
+
+        // Update indicators
+        document.querySelectorAll('.benefits-carousel .indicator').forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === this.currentSlide);
+        });
+
+        // No need to transform track since we use absolute positioning
+
+        // Announce to screen readers
+        this.announceSlideChange();
+
+        // Reset transition flag after animation
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 600);
+    }
+
+    startAutoPlay() {
+        this.stopAutoPlay(); // Clear any existing interval
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoPlayDelay);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+
+    restartAutoPlay() {
+        this.stopAutoPlay();
+        setTimeout(() => {
+            this.startAutoPlay();
+        }, 2000); // Restart after 2 seconds
+    }
+
+    announceSlideChange() {
+        const slideNames = [
+            'Escrita Autorregulada no Centro',
+            'Imersão total com Análise Integrada em Tempo Real',
+            'Painel de Sentimentos',
+            'Uso de rubricas e evolução por níveis',
+            'IA como Assistente',
+            'Metodologia Validada Academicamente'
+        ];
+
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Slide ${this.currentSlide + 1} de ${this.totalSlides}: ${slideNames[this.currentSlide]}`;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            if (document.body.contains(announcement)) {
+                document.body.removeChild(announcement);
+            }
+        }, 1000);
+    }
+
+    // Method for debugging
+    getCurrentSlide() {
+        return {
+            current: this.currentSlide,
+            total: this.totalSlides,
+            isAutoPlaying: !!this.autoPlayInterval
+        };
+    }
+}
 
 // Global error handling
 window.addEventListener('error', (e) => {

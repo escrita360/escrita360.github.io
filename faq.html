@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Dúvidas Frequentes | Escrita360</title>
+    <meta name="description" content="Tire suas dúvidas sobre a plataforma Escrita360. Encontre respostas sobre funcionalidades, implementação e como funciona nossa plataforma de redação para ENEM.">
+    <meta name="keywords" content="faq escrita360, dúvidas frequentes, plataforma redação, como funciona, correção ia">
+    <meta name="author" content="Escrita360">
+    <meta property="og:title" content="FAQ - Dúvidas Frequentes | Escrita360">
+    <meta property="og:description" content="Tire suas dúvidas sobre a plataforma Escrita360 e descubra como revolucionar o ensino de redação.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://escrita360.github.io/faq.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-4);
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+        
+        .faq-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+        }
+        
+        .faq-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-search {
+            margin-bottom: var(--space-8);
+            text-align: center;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-12) var(--space-4) var(--space-4);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 78, 134, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .faq-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding: 0 var(--space-2) ;
+        }
+        
+        .category-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .category-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .category-card.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .category-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+            color: var(--primary-color);
+        }
+        
+        .category-card.active .category-icon {
+            color: white;
+        }
+        
+        .category-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+        
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: var(--space-6);
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-base);
+        }
+        
+        .faq-question:hover {
+            color: var(--primary-color);
+        }
+        
+        .faq-question.active {
+            color: var(--primary-color);
+            background: rgba(46, 78, 134, 0.05);
+        }
+        
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform var(--transition-base);
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-answer.active {
+            max-height: 1000px;
+        }
+        
+        .faq-answer-content {
+            padding: 0 var(--space-6) var(--space-6) var(--space-6);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--text-secondary);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+            color: var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-question {
+                font-size: 1rem;
+                padding: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Navegação principal">
+            <div class="container">
+                <a href="index.html" class="nav-brand" aria-label="Escrita360 - Página inicial">
+                    <img src="assets/logo1.png" alt="Escrita360" class="nav-logo" />
+                </a>
+                
+                <ul class="nav-menu" role="menubar">
+                    <li role="none"><a href="index.html" role="menuitem">Início</a></li>
+                    <li role="none"><a href="recursos.html" role="menuitem">Recursos</a></li>
+                    <li role="none" class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                            Planos
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="planos-estudantes.html" role="menuitem">Estudantes</a></li>
+                            <li role="none"><a href="planos-professores.html" role="menuitem">Professores Independentes</a></li>
+                            <li role="none"><a href="planos-escolas.html" role="menuitem">Escolas</a></li>
+                        </ul>
+                    </li>
+                    <li role="none"><a href="index.html#how-it-works" role="menuitem">Metodologia</a></li>
+                    <li role="none"><a href="faq.html" role="menuitem" class="active">FAQ</a></li>
+                    <li role="none"><a href="index.html#contato" role="menuitem">Contato</a></li>
+                </ul>
+                
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <div class="faq-container">
+            <!-- Header -->
+            <div class="faq-header">
+                <h1>Dúvidas Frequentes</h1>
+                <p>Encontre respostas para as principais dúvidas sobre a plataforma Escrita360</p>
+            </div>
+
+            <!-- Search -->
+            <div class="faq-search">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Pesquise sua dúvida..." id="faqSearch" autocomplete="off">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="faq-categories">
+                <div class="category-card active" data-category="all">
+                    <div class="category-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <h3>Todas</h3>
+                </div>
+                <div class="category-card" data-category="plataforma">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Plataforma</h3>
+                </div>
+                <div class="category-card" data-category="implementacao">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Implementação</h3>
+                </div>
+                <div class="category-card" data-category="recursos">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Recursos</h3>
+                </div>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="faq-items" id="faqItems">
+                <!-- Item 1 -->
+                <div class="faq-item" data-category="plataforma">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>O que diferencia o Escrita360 das demais plataformas?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>O Escrita360 se apresenta como uma solução inovadora que vai além da correção das redações do ENEM. Funciona como um laboratório digital, com módulo digital imersivo e formativo que permite ao usuário escrever, reescrever, analisar e corrigir seus textos de forma autônoma e reflexiva.</p>
+                            <p>Com recursos integrados de análise e geração de insights, promove o desenvolvimento contínuo das habilidades e aprimora a qualidade da escrita. As correções também podem ser automatizadas com apoio de Inteligência Artificial.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-item" data-category="plataforma">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Como Funciona?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>A trajetória de escrita é imersiva e autorregulada, dividida em três fases: <strong>planejamento</strong>, <strong>produção</strong> e <strong>autoavaliação</strong>. A plataforma incentiva o estudante a assumir o controle do processo, oferecendo suporte para um aprendizado progressivo e personalizado.</p>
+                            <p>O módulo de escrita imersivo utiliza o parágrafo-padrão como ponto de partida para estruturar ideias e argumentos com clareza e segurança. Durante o processo, o estudante acompanha sua evolução com rubricas e listas de verificação, aplicando critérios padronizados de avaliação que permitem identificar dificuldades, monitorar o progresso e desenvolver a autorregulação da escrita.</p>
+                            <p>A plataforma gera relatórios automáticos com percentuais por critério, gráficos de desempenho e notas de 0 a 10, transformando dados qualitativos em quantitativos. Além da autoavaliação, o usuário recebe feedback instantâneo via IA após a submissão do texto. Os planos incluem créditos para análises detalhadas e correção automatizada por Inteligência Artificial.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-item" data-category="implementacao">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>A quais segmentos escolares a plataforma atende?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>É uma plataforma pensada para atender a <strong>Educação Básica</strong>, especialmente, o <strong>Ensino Fundamental Anos Finais</strong> e o <strong>Ensino Médio</strong>, etapas em que o texto dissertativo-argumentativo é trabalhado com mais frequência.</p>
+                            <p>Pode ser usada também por <strong>estudantes independentes</strong> que estão se preparando para o ENEM e <strong>Cursinhos Preparatórios</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="faq-item" data-category="implementacao">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Como é feita a implementação da plataforma nas escolas?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>O processo é realizado pela <strong>equipe de suporte do Escrita360</strong>, responsável por criar logins, ativar acessos e organizar as formações iniciais com os educadores.</p>
+                            <p>Após a ativação, a escola ou rede conta com <strong>acompanhamento contínuo</strong> para suporte e formações complementares sempre que necessário.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="faq-item" data-category="recursos">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Como o desempenho dos alunos nas habilidades escritas pode ser acompanhado?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <h4>Para o Estudante:</h4>
+                            <p>O estudante pode autoavaliar suas produções escritas com o apoio de rubricas e listas de verificação, acompanhando sua evolução por meio de gráficos e níveis de desempenho. Também tem acesso a recursos de análise textual automatizada, que indicam pontos de melhoria e padrões de escrita.</p>
+                            
+                            <h4>Para o Professor:</h4>
+                            <p>O professor conta com três tipos de relatórios:</p>
+                            <ul>
+                                <li><strong>Autoavaliações dos alunos</strong>, com notas e gráficos individuais</li>
+                                <li><strong>Análises automatizadas por IA</strong></li>
+                                <li><strong>Relatórios comparativos</strong>, que mostram os índices de concordância e divergência entre as avaliações de alunos e professores</li>
+                            </ul>
+                            
+                            <h4>Para a Escola:</h4>
+                            <p>A escola dispõe de um dashboard completo, com mapeamento das habilidades por turma, médias de desempenho, comparativos entre autoavaliações e avaliações docentes e relatórios alinhados à BNCC (MEC) e às competências do ENEM (INEP).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="faq-item" data-category="recursos">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Como são utilizados os créditos nas correções com IA?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Quando o usuário solicita a correção, o sistema consome créditos de uso, equivalentes a chamadas à IA. <strong>Cada redação corrigida consome um crédito</strong> (uma unidade de consumo).</p>
+                            <p>Enquanto a assinatura estiver ativa, o usuário poderá utilizar os créditos de IA para correções e análises de textos, conforme o limite do plano contratado.</p>
+                            <p><strong>Os créditos não utilizados serão acumulados para os meses seguintes</strong>, desde que a assinatura permaneça vigente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="faq-item" data-category="recursos">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Que tipos de recursos de análise estão integrados à plataforma?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>A plataforma possibilita um conjunto de <strong>análises ilimitadas</strong> que incluem:</p>
+                            <ul>
+                                <li><strong>Verificação da estrutura e fluidez do parágrafo</strong>, com a simulação do número de palavras por linha para a redação ENEM</li>
+                                <li><strong>Composição e comprimento das frases</strong></li>
+                                <li><strong>Frequência de palavras</strong></li>
+                                <li><strong>Identificação de elementos coesivos</strong> (coesão sequencial e referencial)</li>
+                            </ul>
+                            <p>Isso permite ajustes em tempo real, para a melhoria contínua da escrita e acompanhamento detalhado das principais dificuldades.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="faq-item" data-category="plataforma">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Qual a diferença entre uma correção do Texto dissertativo-argumentativo e Texto dissertativo-argumentativo (Redação ENEM)?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <h4>Texto dissertativo-argumentativo:</h4>
+                            <p>A plataforma disponibiliza um conjunto de listas de verificação e de rubricas com critérios e níveis de desempenho para estimular e desenvolver a autonomia e o protagonismo do aluno no processo de autoavaliação de seus textos.</p>
+                            <p>Busca-se como resultado de aprendizagem que o estudante demonstre domínio das habilidades textuais ao produzir um texto dissertativo-argumentativo com:</p>
+                            <ul>
+                                <li>Estrutura adequada ao gênero (introdução, desenvolvimento e conclusão)</li>
+                                <li>Aderência ao tema (clareza, pertinência e delimitação)</li>
+                                <li>Uso correto da norma culta (vocabulário, ortografia, concordância, pontuação e adequação ao registro formal)</li>
+                                <li>Coesão e coerência textual</li>
+                                <li>Organização argumentativa clara (relevância, consistência e progressão das ideias)</li>
+                                <li>Integração de repertório sociocultural relevante</li>
+                                <li>Indícios evidentes de autoria</li>
+                            </ul>
+                            
+                            <h4>Redação ENEM:</h4>
+                            <p>Na Redação ENEM, avalia-se a produção de um texto dissertativo-argumentativo que atenda aos seguintes critérios de excelência, demonstrando domínio das competências textuais e autorais:</p>
+                            <ul>
+                                <li><strong>Competência 1:</strong> Escrita formal</li>
+                                <li><strong>Competência 2:</strong> Desenvolvimento do tema com estrutura dissertativa-argumentativa</li>
+                                <li><strong>Competência 3:</strong> Organização Argumentativa</li>
+                                <li><strong>Competência 4:</strong> Mecanismos Linguísticos</li>
+                                <li><strong>Competência 5:</strong> Proposta de Intervenção</li>
+                            </ul>
+                            <p>Conforme as cinco competências da Matriz de Referência do exame.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Nenhuma pergunta encontrada</h3>
+                <p>Tente usar outras palavras-chave ou navegue pelas categorias acima.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <span>Escrita360</span>
+                    </div>
+                    <p>A plataforma de redações mais completa para ENEM e vestibulares.</p>
+                    <p>Este site usa cookies para personalizar anúncios e melhorar a sua experiência no site. Ao continuar navegando, você concorda com nossos documentos:</p>
+                    <div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                        <a href="planos-pacotes.html" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline; font-weight: 500;">Planos e Pacotes de Crédito</a>
+                        <a href="termos-condicoes.html" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline; font-weight: 500;">Termos e Condições Gerais de Uso</a>
+                        <a href="politica-privacidade.html" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline; font-weight: 500;">Política de Privacidade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-container">
+        <span class="whatsapp-text">Fale conosco</span>
+        <a href="https://wa.me/5540228922?text=Olá! Gostaria de saber mais sobre o Escrita360" 
+           class="whatsapp-float" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           aria-label="Fale conosco pelo WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <script>
+        // FAQ Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            const categoryCards = document.querySelectorAll('.category-card');
+            const searchInput = document.getElementById('faqSearch');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const noResults = document.getElementById('noResults');
+
+            // FAQ Accordion
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const isActive = question.classList.contains('active');
+                    
+                    // Close all other questions
+                    faqQuestions.forEach(q => {
+                        q.classList.remove('active');
+                        q.setAttribute('aria-expanded', 'false');
+                        q.nextElementSibling.classList.remove('active');
+                    });
+
+                    // Toggle current question
+                    if (!isActive) {
+                        question.classList.add('active');
+                        question.setAttribute('aria-expanded', 'true');
+                        question.nextElementSibling.classList.add('active');
+                    }
+                });
+            });
+
+            // Category Filter
+            categoryCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const category = card.dataset.category;
+                    
+                    // Update active category
+                    categoryCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+
+                    // Filter FAQ items
+                    filterItems(category, searchInput.value);
+                });
+            });
+
+            // Search Functionality
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const activeCategory = document.querySelector('.category-card.active').dataset.category;
+                filterItems(activeCategory, searchTerm);
+            });
+
+            function filterItems(category, searchTerm) {
+                let visibleCount = 0;
+
+                faqItems.forEach(item => {
+                    const itemCategory = item.dataset.category;
+                    const questionText = item.querySelector('.faq-question span').textContent.toLowerCase();
+                    const answerText = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                    
+                    const matchesCategory = category === 'all' || itemCategory === category;
+                    const matchesSearch = searchTerm === '' || 
+                                        questionText.includes(searchTerm) || 
+                                        answerText.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                        // Close accordion if hidden
+                        const question = item.querySelector('.faq-question');
+                        const answer = item.querySelector('.faq-answer');
+                        question.classList.remove('active');
+                        question.setAttribute('aria-expanded', 'false');
+                        answer.classList.remove('active');
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleCount === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+
+            // Navigation menu mobile toggle (reusing from main site)
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

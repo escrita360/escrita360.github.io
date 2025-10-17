@@ -77,119 +77,139 @@
                 </p>
             </div>
             
-            <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6); margin-top: var(--space-8);">
+            <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); margin-top: var(--space-8); max-width: 1000px; margin-left: auto; margin-right: auto;">
+            <style>
+                @media (max-width: 768px) {
+                    .pricing-grid {
+                        grid-template-columns: 1fr !important;
+                        max-width: 500px !important;
+                    }
+                }
+            </style>
                 <!-- Plano Básico Mensal -->
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Plano Básico</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount">49</span>
-                            <span class="period">/mês</span>
+                <div class="pricing-card" style="min-height: 700px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="pricing-header" style="padding: var(--space-4);">
+                        <h3 style="font-size: 26px; margin-bottom: var(--space-3); font-weight: bold;">Plano Básico</h3>
+                        <div class="price" style="margin: var(--space-3) 0;">
+                            <span class="currency" style="font-size: 18px; font-weight: bold;">R$</span>
+                            <span class="amount" style="font-size: 42px; font-weight: bold;">49</span>
+                            <span class="period" style="font-size: 16px; font-weight: 600;">/mês</span>
                         </div>
-                        <p class="plan-description">Plano Híbrido (Plataforma + créditos de IA)</p>
-                        <div style="background: rgba(255,255,255,0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-top: var(--space-2);">
-                            <small style="color: white;"><i class="fas fa-star"></i> 20 créditos de correção</small>
+                        <p class="plan-description" style="font-size: 13px; margin-bottom: var(--space-3);">Plano Híbrido (Plataforma + créditos de IA)</p>
+                        <div style="background: rgba(255,255,255,0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-bottom: var(--space-3);">
+                            <small style="color: white; font-size: 15px; font-weight: bold;"><i class="fas fa-star"></i> 20 créditos de correção</small>
                         </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Módulo de escrita digital autorregulada</li>
-                        <li><i class="fas fa-check"></i> Banco de estratégias para escrita</li>
-                        <li><i class="fas fa-check"></i> Sugestão de temas</li>
-                        <li><i class="fas fa-check"></i> Recursos de apoio autorregulatório</li>
-                        <li><i class="fas fa-check"></i> Insights para melhoria da escrita</li>
-                        <li><i class="fas fa-check"></i> Revisor integrado com recursos de análise ilimitada</li>
-                        <li><i class="fas fa-check"></i> Rubricas qualitativas para (auto)avaliação</li>
-                        <li><i class="fas fa-star" style="color: #fbbf24;"></i> <strong>20 análises detalhadas de redações por IA</strong></li>
-                        <li><i class="fas fa-camera"></i> Correção por foto ou digitada</li>
-                        <li><i class="fas fa-clock"></i> Acesso por 30 dias</li>
+                    <ul class="pricing-features" style="padding: 0 var(--space-4); margin-bottom: var(--space-3); flex-grow: 1; font-size: 15px; font-weight: 600;">
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Módulo de escrita digital autorregulada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Banco de estratégias para escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Sugestão de temas</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Recursos de apoio autorregulatório</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Insights para melhoria da escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Revisor integrado com recursos de análise ilimitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Rubricas qualitativas para (auto)avaliação</li>
+                        <li style="padding: var(--space-1) 0; font-weight: bold;"><i class="fas fa-star" style="color: #fbbf24; margin-right: var(--space-2);"></i> 20 análises detalhadas de redações por IA</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-camera" style="margin-right: var(--space-2);"></i> Correção por foto ou digitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-clock" style="margin-right: var(--space-2);"></i> Acesso por 30 dias</li>
                     </ul>
-                    <a href="#" class="btn-outline">Escolher Básico</a>
+                    <div style="padding: 0 var(--space-4) var(--space-4);">
+                                                <a href="#" class="btn-outline" style="width: 100%; padding: var(--space-3); font-size: 16px; font-weight: bold;">Escolher Básico</a>
+                    </div>
                 </div>
 
                 <!-- Plano Profissional Mensal -->
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Mais Escolhido</div>
-                    <div class="pricing-header">
-                        <h3>Plano Profissional</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount">130</span>
-                            <span class="period">/mês</span>
+                <div class="pricing-card featured" style="min-height: 700px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="popular-badge" style="font-size: 12px; padding: var(--space-1) var(--space-2); font-weight: bold;">Mais Escolhido</div>
+                    <div class="pricing-header" style="padding: var(--space-4);">
+                        <h3 style="font-size: 26px; margin-bottom: var(--space-3); font-weight: bold;">Plano Profissional</h3>
+                        <div class="price" style="margin: var(--space-3) 0;">
+                            <span class="currency" style="font-size: 18px; font-weight: bold;">R$</span>
+                            <span class="amount" style="font-size: 42px; font-weight: bold;">130</span>
+                            <span class="period" style="font-size: 16px; font-weight: 600;">/mês</span>
                         </div>
-                        <p class="plan-description">Plano Híbrido (Plataforma + créditos de IA)</p>
-                        <div style="background: rgba(255,255,255,0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-top: var(--space-2);">
-                            <small style="color: white;"><i class="fas fa-star"></i> 100 créditos de correção</small>
+                        <p class="plan-description" style="font-size: 15px; margin-bottom: var(--space-3); font-weight: 600;">Plano Híbrido (Plataforma + créditos de IA)</p>
+                        <div style="background: rgba(255,255,255,0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-bottom: var(--space-3);">
+                            <small style="color: white; font-size: 15px; font-weight: bold;"><i class="fas fa-star"></i> 100 créditos de correção</small>
                         </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Módulo de escrita digital autorregulada</li>
-                        <li><i class="fas fa-check"></i> Banco de estratégias para escrita</li>
-                        <li><i class="fas fa-check"></i> Sugestão de temas</li>
-                        <li><i class="fas fa-check"></i> Recursos de apoio autorregulatório</li>
-                        <li><i class="fas fa-check"></i> Insights para melhoria da escrita</li>
-                        <li><i class="fas fa-check"></i> Revisor integrado com recursos de análise ilimitada</li>
-                        <li><i class="fas fa-check"></i> Rubricas qualitativas para (auto)avaliação</li>
-                        <li><i class="fas fa-star" style="color: #fbbf24;"></i> <strong>100 análises detalhadas de redações por IA</strong></li>
-                        <li><i class="fas fa-camera"></i> Correção por foto ou digitada</li>
-                        <li><i class="fas fa-clock"></i> Acesso por 30 dias</li>
+                    <ul class="pricing-features" style="padding: 0 var(--space-4); margin-bottom: var(--space-3); flex-grow: 1; font-size: 15px; font-weight: 600;">
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Módulo de escrita digital autorregulada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Banco de estratégias para escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Sugestão de temas</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Recursos de apoio autorregulatório</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Insights para melhoria da escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Revisor integrado com recursos de análise ilimitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Rubricas qualitativas para (auto)avaliação</li>
+                        <li style="padding: var(--space-1) 0; font-weight: bold;"><i class="fas fa-star" style="color: #fbbf24; margin-right: var(--space-2);"></i> 100 análises detalhadas de redações por IA</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-camera" style="margin-right: var(--space-2);"></i> Correção por foto ou digitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-clock" style="margin-right: var(--space-2);"></i> Acesso por 30 dias</li>
                     </ul>
-                    <a href="#" class="btn-primary">Escolher Profissional</a>
+                    <div style="padding: 0 var(--space-4) var(--space-4);">
+                        <a href="#" class="btn-primary" style="width: 100%; padding: var(--space-3); font-size: 16px; font-weight: bold;">Escolher Profissional</a>
+                    </div>
                 </div>
 
                 <!-- Plano Trimestral -->
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Plano Trimestral</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount">320</span>
-                            <span class="period">/3 meses</span>
+                <div class="pricing-card" style="min-height: 700px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="pricing-header" style="padding: var(--space-4);">
+                        <h3 style="font-size: 26px; margin-bottom: var(--space-3); font-weight: bold;">Plano Trimestral</h3>
+                        <div class="price" style="margin: var(--space-3) 0;">
+                            <span class="currency" style="font-size: 16px;">R$</span>
+                            <span class="amount" style="font-size: 42px; font-weight: bold;">320</span>
+                            <span class="period" style="font-size: 14px;">/3 meses</span>
                         </div>
-                        <p class="plan-description">Plano Híbrido (Plataforma + créditos de IA)</p>
-                       
+                        <p class="plan-description" style="font-size: 13px; margin-bottom: var(--space-3);">Plano Híbrido (Plataforma + créditos de IA)</p>
+                        <div style="background: rgba(255,255,255,0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-bottom: var(--space-3);">
+                            <small style="color: white; font-size: 13px; font-weight: bold;"><i class="fas fa-star"></i> 300 créditos de correção</small>
+                        </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Módulo de escrita digital autorregulada</li>
-                        <li><i class="fas fa-check"></i> Banco de estratégias para escrita</li>
-                        <li><i class="fas fa-check"></i> Sugestão de temas</li>
-                        <li><i class="fas fa-check"></i> Recursos de apoio autorregulatório</li>
-                        <li><i class="fas fa-check"></i> Insights para melhoria da escrita</li>
-                        <li><i class="fas fa-check"></i> Revisor integrado com recursos de análise ilimitada</li>
-                        <li><i class="fas fa-check"></i> Rubricas qualitativas para (auto)avaliação</li>
-                        <li><i class="fas fa-star" style="color: #fbbf24;"></i> <strong>300 análises detalhadas de redações por IA</strong></li>
-                        <li><i class="fas fa-camera"></i> Correção por foto ou digitada</li>
-                        <li><i class="fas fa-clock"></i> Acesso por 90 dias</li>
+                    <ul class="pricing-features" style="padding: 0 var(--space-4); margin-bottom: var(--space-3); flex-grow: 1; font-size: 15px; font-weight: 600;">
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Módulo de escrita digital autorregulada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Banco de estratégias para escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Sugestão de temas</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Recursos de apoio autorregulatório</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Insights para melhoria da escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Revisor integrado com recursos de análise ilimitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Rubricas qualitativas para (auto)avaliação</li>
+                        <li style="padding: var(--space-1) 0; font-weight: bold;"><i class="fas fa-star" style="color: #fbbf24; margin-right: var(--space-2);"></i> 300 análises detalhadas de redações por IA</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-camera" style="margin-right: var(--space-2);"></i> Correção por foto ou digitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-clock" style="margin-right: var(--space-2);"></i> Acesso por 90 dias</li>
                     </ul>
-                    <a href="#" class="btn-outline">Escolher Trimestral</a>
+                    <div style="padding: 0 var(--space-4) var(--space-4);">
+                        <a href="#" class="btn-outline" style="width: 100%; padding: var(--space-3); font-size: 16px; font-weight: bold;">Escolher Trimestral</a>
+                    </div>
                 </div>
 
                 <!-- Plano Semestral -->
-                <div class="pricing-card" style="border: 2px solid var(--success-color); position: relative;">
-                    <div style="position: absolute; top: -10px; right: var(--space-4); background: var(--success-color); color: white; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 12px; font-weight: bold;">MELHOR VALOR</div>
-                    <div class="pricing-header">
-                        <h3>Plano Semestral</h3>
-                        <div class="price">
-                            <span class="currency">R$</span>
-                            <span class="amount" style="color: var(--success-color);">465</span>
-                            <span class="period">/6 meses</span>
+                <div class="pricing-card" style="border: 2px solid var(--success-color); position: relative; min-height: 700px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="position: absolute; top: -10px; right: var(--space-4); background: var(--success-color); color: white; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); font-size: 11px; font-weight: bold;">MELHOR VALOR</div>
+                    <div class="pricing-header" style="padding: var(--space-4); padding-top: var(--space-5);">
+                        <h3 style="font-size: 26px; margin-bottom: var(--space-3); font-weight: bold;">Plano Semestral</h3>
+                        <div class="price" style="margin: var(--space-3) 0;">
+                            <span class="currency" style="font-size: 16px;">R$</span>
+                            <span class="amount" style="color: var(--success-color); font-size: 42px; font-weight: bold;">465</span>
+                            <span class="period" style="font-size: 14px;">/6 meses</span>
                         </div>
-                        <p class="plan-description">Plano Híbrido (Plataforma + créditos de IA)</p>
-                      
+                        <p class="plan-description" style="font-size: 13px; margin-bottom: var(--space-3);">Plano Híbrido (Plataforma + créditos de IA)</p>
+                        <div style="background: rgba(16, 185, 129, 0.2); padding: var(--space-2); border-radius: var(--radius-sm); margin-bottom: var(--space-3);">
+                            <small style="color: var(--success-color); font-size: 15px; font-weight: bold;"><i class="fas fa-star"></i> 600 créditos de correção</small>
+                        </div>
                     </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Módulo de escrita digital autorregulada</li>
-                        <li><i class="fas fa-check"></i> Banco de estratégias para escrita</li>
-                        <li><i class="fas fa-check"></i> Sugestão de temas</li>
-                        <li><i class="fas fa-check"></i> Recursos de apoio autorregulatório</li>
-                        <li><i class="fas fa-check"></i> Insights para melhoria da escrita</li>
-                        <li><i class="fas fa-check"></i> Revisor integrado com recursos de análise ilimitada</li>
-                        <li><i class="fas fa-check"></i> Rubricas qualitativas para (auto)avaliação</li>
-                        <li><i class="fas fa-star" style="color: var(--success-color);"></i> <strong>600 análises detalhadas de redações por IA</strong></li>
-                        <li><i class="fas fa-camera"></i> Correção por foto ou digitada</li>
-                        <li><i class="fas fa-clock"></i> Acesso por 180 dias</li>
+                    <ul class="pricing-features" style="padding: 0 var(--space-4); margin-bottom: var(--space-3); flex-grow: 1; font-size: 15px; font-weight: 600;">
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Módulo de escrita digital autorregulada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Banco de estratégias para escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Sugestão de temas</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Recursos de apoio autorregulatório</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Insights para melhoria da escrita</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Revisor integrado com recursos de análise ilimitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-check" style="margin-right: var(--space-2);"></i> Rubricas qualitativas para (auto)avaliação</li>
+                        <li style="padding: var(--space-1) 0; font-weight: bold;"><i class="fas fa-star" style="color: var(--success-color); margin-right: var(--space-2);"></i> 600 análises detalhadas de redações por IA</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-camera" style="margin-right: var(--space-2);"></i> Correção por foto ou digitada</li>
+                        <li style="padding: var(--space-1) 0;"><i class="fas fa-clock" style="margin-right: var(--space-2);"></i> Acesso por 180 dias</li>
                     </ul>
-                    <a href="#" class="btn btn-primary" style="background: var(--success-color);">Escolher Semestral</a>
+                    <div style="padding: 0 var(--space-4) var(--space-4);">
+                        <a href="#" class="btn btn-primary" style="background: var(--success-color); width: 100%; padding: var(--space-3); font-size: 16px; font-weight: bold;">Escolher Semestral</a>
+                    </div>
                 </div>
             </div>
         </div>
