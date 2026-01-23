@@ -40,7 +40,7 @@ jobs:
 
       - name: Update base path for root domain
         run: |
-          sed -i "s|base: '/escrita360_sitereact/',|base: '/',|g" vite.config.ts
+          sed -i "s|base: '/escrita360_sitereact/',|base: '/',|g" vite.config.js
 
       - name: Build
         run: pnpm run build
